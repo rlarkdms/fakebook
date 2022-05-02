@@ -5,6 +5,7 @@ The fakebook is a facebook cloning project for practice CURD.
 * TypeScript
 * Nest.js
 * TypeORM
+* PostgreSQL
 
 ## Study note
 * Nest.js 는 모듈의 집합이다.
@@ -102,4 +103,5 @@ Static method: new 로 객체를 생성하지 않고 즉시 호출가능한 meth
 Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 생성해야하는데 생성된 객체를 instance 라고 한다. `a = new b();`
 
 ## References
-* https://wikidocs.net/147787
+* nest.js: https://wikidocs.net/147787
+* nest.js + typeORM + PostgreSQL: https://medium.com/@feedbotstar/nest-js-typeorm-postgresql-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0-153c3a55aba1
