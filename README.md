@@ -12,7 +12,7 @@ The fakebook is a facebook cloning project for practice CURD.
 ## How to use
 ### Run postgres on docker
 ```bash
-$ docker run -d -p 5432:5432 -e POSTGRES_USER="tempuser" -e POSTGRES_PASSWORD="temppass" --name fakebook postgres
+$ docker run -d -p 5432:5432 -e POSTGRES_USER="fakebook" -e POSTGRES_PASSWORD="temppass" --name fakebook postgres
 ```
 
 ## Study note
