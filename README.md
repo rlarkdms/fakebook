@@ -1,11 +1,19 @@
 # Fakebook
 The fakebook is a facebook cloning project for practice CURD.
 
+## Skill stacks
 * Node.js
 * TypeScript
 * Nest.js
 * TypeORM
 * PostgreSQL
+* Docker
+
+## How to use
+### Run postgres on docker
+```bash
+$ docker run -d -p 5432:5432 -e POSTGRES_USER="tempuser" -e POSTGRES_PASSWORD="temppass" --name fakebook postgres
+```
 
 ## Study note
 * Nest.js 는 모듈의 집합이다.
