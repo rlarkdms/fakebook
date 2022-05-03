@@ -101,7 +101,10 @@ deleteUserMemo(
   return `userId: ${userId}, memoId: ${memoId}`;
 }
 ```
-Data Transfer Object(DTO) 를 통해 중복되는 코드를 막을 수 있다.
+# !!! DTO랑 파이프 더 공부하기!!!
+#### Data Transfer Object(DTO)
+DTO 는 값이 어떤 타입을 가지고 이 값이 필수인지와 같은 것을 정의하기 위해 사용한다.
+
 ```ts
 export class DeleteMemo {
   userId: string;
@@ -114,6 +117,10 @@ remove(@Body() deleteMemo: DeleteMemo){
   return `memo deleted userid: ${userId}, email: ${email}`;
 }
 ```
+#### Pipe
+Express 에서는 값을 검증하기 위해 로직을 만들거나 라이브러리를 붙여서 검증을 하였지만 nest 에서는 내장함수로 가능하다.
+검증 로직을 직접 만드는 것을 pipe 라고 하며 nest 에서 기본적으로 제공해주는 pipe 가 있다.
+class-validator 에 기본적인 
 
 ### Circular Dependency
 순환 참조 문제이다. 각 모듈 A, B에 `forwardRef(()=> ModuleA); forwardRef(()=> ModuleB);`해주면 된다.

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,9 +20,8 @@ import { ConfigModule } from '@nestjs/config';
           synchronize: true,
           entities: ["dist/**/*.entity{.ts,.js}"]
       }),
-      UsersModule
+      UsersModule,
+      AuthModule
   ]
 })
 export class AppModule {}
-
-모듈 리드미에 설명 적기
