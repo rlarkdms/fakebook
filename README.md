@@ -25,7 +25,7 @@ $ nest start server
 * Nest.js 는 Single Responsibility Principle 에 의해 Controller, Provider(Service, Repository, Factory, Helper, etc...), Module 로 구성되어 있다. 기존 express 와 비교하면 비즈니스 로직을 provider(service)에 정의 하고 Controller 는 url과 연결시키는 역할만 한다.
 * 기능별로 모듈을 생성한다.(E.g Users, Auth...) 
 * 각 모듈을 root module(app.module.ts) 에 import 시켜주어야 한다.
-* Dependency Injection 알아보기...    
+* Dependency Injection 알아보기...
 
 main.ts 는 Nest.js 의 Entry Point(EP) 이다. 
 ```ts
@@ -106,6 +106,7 @@ export class DeleteMemo {
   userId: string;
   email: string;
 }
+---
 @Delete()
 remove(@Body() deleteMemo: DeleteMemo){
   const {userId, email}=deleteMemo;
@@ -113,6 +114,8 @@ remove(@Body() deleteMemo: DeleteMemo){
 }
 ```
 
+### Circular Dependency
+순환 참조 문제이다. 각 모듈 A, B에 `forwardRef(()=> ModuleA); forwardRef(()=> ModuleB);`해주면 된다.
 
 ## Object Oriented Programming dictionary
 Method: 객체의 기능을 구현하기 위해서 클래스 내부에 구현되는 함수.  
@@ -122,3 +125,4 @@ Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 �
 ## References
 * nest.js: https://wikidocs.net/147787
 * nest.js + typeORM + PostgreSQL: https://medium.com/@feedbotstar/nest-js-typeorm-postgresql-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0-153c3a55aba1
+* https://kimmanbo.tistory.com/18
