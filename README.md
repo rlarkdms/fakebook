@@ -12,7 +12,8 @@ The fakebook is a facebook cloning project for practice CURD.
 ## How to use
 ### Run postgres on docker
 ```bash
-$ docker run -d -p 5432:5432 -e POSTGRES_USER="fakebook" -e POSTGRES_PASSWORD="temppass" --name fakebook postgres
+$ sudo mkdir /db
+$ docker run -d -p 5432:5432 -v /db:/var/lib/postgresql/data --restart unless-stopped -e POSTGRES_USER="fakebook" -e POSTGRES_PASSWORD="temppass" -e PGDATA=/var/lib/postgresql/data/pgdata --name fakebook postgres
 ```
 
 ## Study note
