@@ -1,5 +1,5 @@
 # Fakebook
-The fakebook is a facebook cloning project for practice CURD.
+The fakebook is a facebook cloning project for practice basic CURD with RESTful API.
 
 ## Skill stacks
 * Node.js
@@ -35,8 +35,11 @@ async function bootstrap() {
 bootstrap();
 ```
 NestFactory class 는 애플리케이션 인스턴스를 생성할 수 있는 몇가지 **static method** 를 제공함.  
-`$ nest g {controller, service, module} {name}`
-
+## nest command
+### generate controller, service, module
+`$ nest g <controller, service, module> <name>`
+### generate CURD 
+`$ nest g resource <name>`
 ### Controller
 Controller 는 request 를 받고 처리된 결과를 response 해주는 역할을 한다.  
 Controller 는 endpoint routing 매커니즘을 통해 각 컨트롤러가 받을 수 있는 요청을 분류함  
