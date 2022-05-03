@@ -35,10 +35,10 @@ async function bootstrap() {
 bootstrap();
 ```
 NestFactory class 는 애플리케이션 인스턴스를 생성할 수 있는 몇가지 **static method** 를 제공함.  
-## nest command
-### generate controller, service, module
+### nest command
+#### generate controller, service, module
 `$ nest g <controller, service, module> <name>`
-### generate CURD 
+#### generate CURD
 `$ nest g resource <name>`
 ### Controller
 Controller 는 request 를 받고 처리된 결과를 response 해주는 역할을 한다.  
