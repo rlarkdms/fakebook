@@ -15,12 +15,16 @@ The fakebook is a facebook cloning project for practice basic CURD with RESTful 
 $ sudo mkdir /db
 $ docker run -d -p 5432:5432 -v /db:/var/lib/postgresql/data --restart unless-stopped -e POSTGRES_USER="fakebook" -e POSTGRES_PASSWORD="temppass" -e PGDATA=/var/lib/postgresql/data/pgdata --name fakebook postgres
 ```
+### Run nest.js server
+```bash
+$ nest start server
+```
 
 ## Study note
 * Nest.js 는 모듈의 집합이다.
-* Nest.js 는 하나 이상의 모듈이 반드시 있어야한다
-* 기능별로 모듈을 생성한다(더 상세히 적기)
-* 각 모듈을 root module 에 import 시켜주어야 한다
+* Nest.js 는 Single Responsibility Principle 에 의해 Controller, Provider(Service, Repository, Factory, Helper, etc...), Module 로 구성되어 있다.
+* 기능별로 모듈을 생성한다.(E.g Users, Auth...)
+* 각 모듈을 root module(app.module.ts) 에 import 시켜주어야 한다.
 
 main.ts 는 Nest.js 의 Entry Point(EP) 이다. 
 ```ts
