@@ -26,6 +26,7 @@ $ nest start server
 * 기능별로 모듈을 생성한다.(E.g Users, Auth...) 
 * 각 모듈을 root module(app.module.ts) 에 import 시켜주어야 한다.
 * Dependency Injection 알아보기...
+* 데이터 추출은 처리 시간이 천차만별이기에 JS 에서 대부분 Asynchronous 로 작동한다.
 
 main.ts 는 Nest.js 의 Entry Point(EP) 이다. 
 ```ts
