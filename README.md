@@ -117,7 +117,7 @@ export class DeleteMemo {
 
 // memo.controller.ts
 @Delete()
-remove(@Body() deleteMemo: DeleteMemo): string{
+remove(@Body() deleteMemo: DeleteMemo){
   const {userId, email}=deleteMemo;
   return `memo deleted userid: ${userId}, email: ${email}`;
 }
