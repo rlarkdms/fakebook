@@ -108,16 +108,26 @@ pipe 들은 라우팅 매서드들이 호출되기 전에 그 인자와 반환�
 그 과정에서 DTO 등의 유효성을 검사하고 변환작업을 수행한다.
 
 ```ts
+// dto/delete-memo.dto.ts
 export class DeleteMemo {
-  userId: string;
-  email: string;
+  readonly userId: string;
+  readonly email: string;
 }
----
+
+// memo.controller.ts
 @Delete()
 remove(@Body() deleteMemo: DeleteMemo): string{
   const {userId, email}=deleteMemo;
   return `memo deleted userid: ${userId}, email: ${email}`;
 }
+
+// main.ts
+app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true
+}));
+
 ```
 
 ### Dependency Injection
