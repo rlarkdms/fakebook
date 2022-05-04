@@ -100,9 +100,12 @@ deleteUserMemo(
   return `userId: ${userId}, memoId: ${memoId}`;
 }
 ```
-# !!! DTO랑 파이프 더 공부하기!!!
-### Data Transfer Object(DTO)
-DTO 는 값이 어떤 타입을 가지고 이 값이 필수인지와 같은 것을 정의하기 위해 사용한다.
+### Data Transfer Object(DTO) and Pipe
+서버로 요청을 전달하거나 응답을 받을때는 규격화된 형식을 쓴다.  
+매번 매개변수나 로직을 조작해서 수행하게 되면 별로 좋지 않으므로 해당 요청과 응답에 대한 형식을 클래스로 만들어 두면 Nest에서 자동으로 변환을 해준다.  
+pipe는 이러한 일들을 가능하도록 만들어준다.
+pipe 들은 라우팅 매서드들이 호출되기 전에 그 인자와 반환값을 조작한다.
+그 과정에서 DTO 등의 유효성을 검사하고 변환작업을 수행한다.
 
 ```ts
 export class DeleteMemo {
@@ -111,7 +114,7 @@ export class DeleteMemo {
 }
 ---
 @Delete()
-remove(@Body() deleteMemo: DeleteMemo){
+remove(@Body() deleteMemo: DeleteMemo): string{
   const {userId, email}=deleteMemo;
   return `memo deleted userid: ${userId}, email: ${email}`;
 }
@@ -142,11 +145,6 @@ ServiceB():string
 
 ```
 
-### Pipe
-Express 에서는 값을 검증하기 위해 로직을 만들거나 라이브러리를 붙여서 검증을 하였지만 nest 에서는 내장함수로 가능하다.
-검증 로직을 직접 만드는 것을 pipe 라고 하며 nest 에서 기본적으로 제공해주는 pipe 가 있다.
-class-validator 에 기본적인 
-
 ### Circular Dependency
 순환 참조 문제이다. 각 모듈 A, B에 `forwardRef(()=> ModuleA); forwardRef(()=> ModuleB);`해주면 된다.
 
@@ -161,4 +159,3 @@ Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 �
 * https://kimmanbo.tistory.com/18
 * https://velog.io/@qnfmtm666/2.-NestJS-NestJS-%EB%B0%95%EC%82%B4%EB%82%B4%EA%B8%B0-%EC%8B%9C%EC%9E%91%ED%95%98%EC%9E%90
 * https://m.blog.naver.com/sssang97/221942419992 <- good
-* 
