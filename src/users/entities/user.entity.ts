@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
-@Entity('User')
+@Entity({ name: 'user' })
 export class UserEntity {
     @PrimaryColumn({ length: 15 })
     id: string;
