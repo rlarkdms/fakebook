@@ -25,7 +25,6 @@ $ nest start server
 * Nest.js 는 Single Responsibility Principle 에 의해 Controller, Provider(Service, Repository, Factory, Helper, etc...), Module 로 구성되어 있다. 기존 express 와 비교하면 비즈니스 로직을 provider(service)에 정의 하고 Controller 는 url과 연결시키는 역할만 한다.
 * 기능별로 모듈을 생성한다.(E.g Users, Auth...) 
 * 각 모듈을 root module(app.module.ts) 에 import 시켜주어야 한다.
-* Dependency Injection 알아보기...
 * 데이터 추출, 탐색등은 시간이 얼마나 걸릴지 모르기 때문에 JS 에서 대부분 Asynchronous 로 작동한다.
 
 main.ts 는 Nest.js 의 Entry Point(EP) 이다. 
@@ -102,7 +101,7 @@ deleteUserMemo(
 }
 ```
 # !!! DTO랑 파이프 더 공부하기!!!
-#### Data Transfer Object(DTO)
+### Data Transfer Object(DTO)
 DTO 는 값이 어떤 타입을 가지고 이 값이 필수인지와 같은 것을 정의하기 위해 사용한다.
 
 ```ts
@@ -117,7 +116,33 @@ remove(@Body() deleteMemo: DeleteMemo){
   return `memo deleted userid: ${userId}, email: ${email}`;
 }
 ```
-#### Pipe
+
+### Dependency Injection
+Class 에 `@Injectable()` decorator 가 붙으면 의존성 주입의 대상이 된다.
+각각의 구현된 기능들을 클래스로 분리해서 필요할 때 마다 주입해 사용할 수 있도록 하는 것.
+
+Injectable 클래스를 컨트롤러에서 사용할 수 있게 하려면 해당 컨트롤러가 주입된 모듈 내 providers 배열 목록으로 전달해야한다.
+```ts
+//user.module.ts
+@Module({
+    providers: [ServiceA]
+})
+// user.service.ts
+@Injectable()
+export class UserService {
+    constructor(
+        private serviceA: ServiceA
+    ){}
+}
+...
+ServiceB():string
+{
+    return this.serviceA.funcA();
+}
+
+```
+
+### Pipe
 Express 에서는 값을 검증하기 위해 로직을 만들거나 라이브러리를 붙여서 검증을 하였지만 nest 에서는 내장함수로 가능하다.
 검증 로직을 직접 만드는 것을 pipe 라고 하며 nest 에서 기본적으로 제공해주는 pipe 가 있다.
 class-validator 에 기본적인 
@@ -135,4 +160,5 @@ Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 �
 * nest.js + typeORM + PostgreSQL: https://medium.com/@feedbotstar/nest-js-typeorm-postgresql-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0-153c3a55aba1
 * https://kimmanbo.tistory.com/18
 * https://velog.io/@qnfmtm666/2.-NestJS-NestJS-%EB%B0%95%EC%82%B4%EB%82%B4%EA%B8%B0-%EC%8B%9C%EC%9E%91%ED%95%98%EC%9E%90
+* https://m.blog.naver.com/sssang97/221942419992 <- good
 * 
