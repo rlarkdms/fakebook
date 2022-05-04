@@ -104,9 +104,9 @@ deleteUserMemo(
 ### Data Transfer Object(DTO) and Pipe
 서버로 요청을 전달하거나 응답을 받을때는 규격화된 형식을 쓴다.  
 매번 매개변수나 로직을 조작해서 수행하게 되면 별로 좋지 않으므로 해당 요청과 응답에 대한 형식을 클래스로 만들어 두면 Nest에서 자동으로 변환을 해준다.  
-pipe는 이러한 일들을 가능하도록 만들어준다.
-pipe 들은 routing method(Controller)들이 호출되기 전에 그 인자와 반환값을 조작한다.(Clients -> Pipes -> Controller)
-그 과정에서 DTO 등의 유효성을 검사하고 변환작업을 수행한다.
+pipe는 이러한 일들을 가능하도록 만들어준다.  
+pipe 들은 routing method(Controller)들이 호출되기 전에 그 인자와 반환값을 조작한다.(Clients -> Pipes -> Controller)  
+그 과정에서 DTO 등의 유효성을 검사하고 변환작업을 수행한다.  
 
 ```ts
 // dto/delete-memo.dto.ts
