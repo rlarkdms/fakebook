@@ -26,7 +26,7 @@ $ nest start server
 * Nest.js 는 Single Responsibility Principle 에 의해 Controller, Provider(Service, Repository, Factory, Helper, etc...), Module 로 구성되어 있다. 기존 express 와 비교하면 비즈니스 로직을 provider(service)에 정의 하고 Controller 는 url과 연결시키는 역할만 한다.
 * 기능별로 모듈을 생성한다.(E.g Users, Auth...) 
 * 각 모듈을 root module(app.module.ts) 에 import 시켜주어야 한다.
-* 데이터 추출, 탐색등은 시간이 얼마나 걸릴지 모르기 때문에 JS 에서 대부분 Asynchronous 로 작동한다.
+* Callback 을 쓰는 궁극적인 이유는 함수간의 실행 순서를 잡아주는 것이다. 그렇기에 callback hell 을 해결하기 위해 promise or async/await 을 사용한다.
 
 main.ts 는 Nest.js 의 Entry Point(EP) 이다. 
 ```ts

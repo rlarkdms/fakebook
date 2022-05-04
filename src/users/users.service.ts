@@ -1,12 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { getManager } from 'typeorm';
+
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { SigninUserDto } from './dto/signin-user.dto';
+import { SignUpUserDto } from './dto/signup-user.dto';
+
+import { SignUpUserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  signin(signinUserDto: SigninUserDto) {
-    return 'shit';
+    async signup(signUpUserDto: SignUpUserDto) {
+      setTimeout(()=>{}, 3000);
+
+    const userRepository = getManager().getRepository(SignUpUserEntity);
+    const userAdd = userRepository.create(signUpUserDto);
+    await userRepository.save(userAdd);
+    return signUpUserDto.id;
+
   }
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
@@ -23,7 +33,7 @@ export class UsersService {
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
-
+s
   remove(id: number) {
     return `This action removes a #${id} user`;
   }
