@@ -9,7 +9,6 @@ I will add English description as soon.
 * TypeORM
 * PostgreSQL
 * Docker
-
 ## How to use
 ### Run postgres on docker
 ```bash
