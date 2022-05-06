@@ -3,12 +3,13 @@ import { getManager } from 'typeorm';
 import { HttpStatus } from '@nestjs/common';
 
 import { SignUpUserDto } from './dto/signup-user.dto';
+import { SignInUserDto } from './dto/signin-user.dto';
 
 import { SignUpUserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-    async signup(signUpUserDto: SignUpUserDto){
+    async signup(signUpUserDto: SignUpUserDto) {
         const userRepository = getManager().getRepository(SignUpUserEntity);
         const userInfo = await userRepository.find({where:{id: signUpUserDto.id}});
         if (userInfo.length) {
@@ -19,5 +20,7 @@ export class UsersService {
             return {status: HttpStatus.OK, message: "Success"};
         }
   }
-  async signin(){}
+  async signin(signInUserDto: SignInUserDto){
+
+  }
 }

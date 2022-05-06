@@ -9,10 +9,10 @@ export class UsersController {
 
   @Post('signup')
   async signup (@Body() signUpUserDto: SignUpUserDto) {
-     return this.usersService.signup(signUpUserDto)
+      return this.usersService.signup(signUpUserDto);
   }
   @Post('signin')
   async signin(@Body() signInUserDto: SignInUserDto){
-
+      return this.usersService.signin(signInUserDto);
   }
 }
