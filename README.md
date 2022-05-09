@@ -30,7 +30,7 @@ $ nest start server
 * 기능별로 모듈을 생성한다.(E.g Users, Auth...) 
 * 각 모듈을 root module(app.module.ts) 에 import 시켜주어야 한다.
 * Callback 을 쓰는 궁극적인 이유는 함수간의 실행 순서를 잡아주는 것이다. 그렇기에 callback hell 을 해결하기 위해 promise or async/await 을 사용한다.
-
+* passport 의 authentication method 는 passport-local 방식과 passport-jwt 방식 이 있다.
 main.ts 는 Nest.js 의 Entry Point(EP) 이다. 
 ```ts
 // main.ts
