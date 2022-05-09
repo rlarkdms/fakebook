@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 @Entity({ name: 'user' })
-export class SignUpUserEntity {
+export class UserEntity {
     @PrimaryColumn({ unique: true, length: 15 })
     id: string;
 
