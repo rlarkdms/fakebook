@@ -17,7 +17,7 @@ import { AuthModule } from './auth/auth.module';
           password: process.env.DATABASE_PASS,
           database: process.env.DATABASE_NAME,
           autoLoadEntities: true,
-          synchronize: true,
+          synchronize: false,
           entities: ["dist/**/*.entity{.ts,.js}"]
       }),
       UsersModule,
