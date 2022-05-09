@@ -7,9 +7,9 @@ export class UserEntity {
     @Column({ length: 30 })
     name: string;
 
-    @Column({ length: 50 })
+    @Column({ length: 30 })
     email: string;
 
-    @Column({ length: 20 })
+    @Column({ length: 30 })
     password: string;
 }

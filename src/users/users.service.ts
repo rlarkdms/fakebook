@@ -8,14 +8,16 @@ import { SignInUserDto } from './dto/signin-user.dto';
 import { UserEntity } from './entities/user.entity';
 
 @Injectable()
-export class UsersService {
-    async findDuplicateUser(signInUserDto: SignInUserDto["id"]): Promise <true|false> {
+export class UsersService{
+    // return user's information if id is matched. if not, return null
+    public async findUser(signInUserDto: SignInUserDto["id"]): Promise <SignInUserDto[]|null> {
         const userInfo = await getRepository(UserEntity).find({where: {id: signInUserDto}});
-        return !!userInfo.length;
+        if (userInfo.length > 0) return userInfo
+        else return null
     }
-    async signup(signUpUserDto: SignUpUserDto): Promise<{status: number, message: string}>{
+    public async signup(signUpUserDto: SignUpUserDto): Promise<{status: number, message: string}>{
         const userRepository = getRepository(UserEntity);
-        if (await this.findDuplicateUser(signUpUserDto.id)) {
+        if (await this.findUser(signUpUserDto.id)) {
             return {status: HttpStatus.CONFLICT, message: "Duplicate user id"};
         } else {
             const userAdd = userRepository.create(signUpUserDto);
@@ -23,10 +25,9 @@ export class UsersService {
             return {status: HttpStatus.OK, message: "Success"};
         }
     }
-    async signin(signInUserDto: SignInUserDto): Promise<{status: number, message: string}>{
+    public async signin(signInUserDto: SignInUserDto): Promise<{status: number, message: string}>{
         const userRepository = getRepository(UserEntity);
-        if (await this.findDuplicateUser(signInUserDto.id)){
-
+        if (await this.findUser(signInUserDto.id)){
         } else {
             return {status: HttpStatus.NOT_FOUND, message: "Cannot found user"}
         }
