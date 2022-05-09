@@ -11,7 +11,7 @@ I will add English description as soon.
 * Docker
 
 ## To-Do
-* Implement JWT authentication module 
+* Implement JWT authentication module with referencing nest postgresql example.
 
 ## How to use
 ### Run postgres on docker
