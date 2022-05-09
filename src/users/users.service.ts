@@ -10,8 +10,8 @@ import { UserEntity } from './entities/user.entity';
 @Injectable()
 export class UsersService{
     // return user's information if id is matched. if not, return null
-    public async findUser(signInUserDto: SignInUserDto["id"]): Promise <SignInUserDto[]|null> {
-        const userInfo = await getRepository(UserEntity).find({where: {id: signInUserDto}});
+    public async findUser(userId: SignInUserDto["id"]): Promise <SignInUserDto[]|null> {
+        const userInfo = await getRepository(UserEntity).find({where: {id: userId}});
         if (userInfo.length > 0) return userInfo
         else return null
     }
