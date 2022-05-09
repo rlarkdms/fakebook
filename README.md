@@ -9,6 +9,10 @@ I will add English description as soon.
 * TypeORM
 * PostgreSQL
 * Docker
+
+## To-Do
+* Implement JWT authentication module 
+
 ## How to use
 ### Run postgres on docker
 ```bash
