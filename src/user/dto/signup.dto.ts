@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsString, IsNotEmpty, IsEmail, MaxLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, MaxLength } from 'class-validator';
 import { SignInUserDto } from './signin-user.dto';
 
 export class SignUpUserDto extends PartialType(SignInUserDto) {
