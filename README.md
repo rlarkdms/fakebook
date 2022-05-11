@@ -115,9 +115,11 @@ CORS and CSRF Token
 
 ## Object Oriented Programming Study note
 Method: 객체의 기능을 구현하기 위해서 클래스 내부에 구현되는 함수.  
-Static method: new 로 객체를 생성하지 않고 즉시 호출가능한 method.  
+Static method: new 로 객체를 생성하지 않고 즉시 호출가능한 method. class 를 통해 instance 를 생성할 필요 없이 
 Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 생성해야하는데 생성된 객체를 instance 라고 한다. `a = new b();`
 
+static method 는 그럼 해당 클래스 내에서만 쓸 기능을 만들때 주로 쓰나?
+아니라면 static method 가 가지는 이점이란?
 
 ## References
 * nest.js: https://wikidocs.net/147787
@@ -126,3 +128,4 @@ Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 �
 * https://velog.io/@qnfmtm666/2.-NestJS-NestJS-%EB%B0%95%EC%82%B4%EB%82%B4%EA%B8%B0-%EC%8B%9C%EC%9E%91%ED%95%98%EC%9E%90
 * https://m.blog.naver.com/sssang97/221942419992 
 * https://jongdai.tistory.com/67 (oop)
+* https://yamoo9.gitbook.io/typescript/ (For learn typescript oop)
