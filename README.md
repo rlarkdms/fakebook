@@ -114,12 +114,43 @@ private readonly serviceB: ServiceB;
 CORS and CSRF Token
 
 # Object Oriented Programming with TypeScript
-## Dictionary
-Method: 객체의 기능을 구현하기 위해서 클래스 내부에 구현되는 함수.  
-Static method: new 로 객체를 생성하지 않고 즉시 호출가능한 method. class 를 통해 instance 를 생성할 필요 없이 
-Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 생성해야하는데 생성된 객체를 instance 라고 한다. `a = new b();`
-
 ## Class
+### Introduction
+class 는 constructor(생성자) 함수를 가르키며, new 로 호출되어 instance 를 생성한다.
+class 선언문은 runtime 이전에 먼저 실행된다.
+
+### Method
+클래스 몸체에 정의할 수 있는 methods 는 다음과 같다.
+* constructor
+* prototype method
+* static method
+#### Constructor
+constructor 는 인스턴스를 생성하고 초기화 하기 위한 특수한 메서드다.  
+constructor 는 생략 가능하지만 인스턴스를 초기화 하려면 생략하면 안된다.
+인수로 초기값을 전달하면 초기값은 constructor 에 전달된다.
+```js
+class Person {
+    constructor(name, address) {
+        this.name = name;
+        this.address = address;
+    }
+}
+const me = new Person('andrew', 'korea');
+console.log(me); // Person {name: "andrew", address: "korea"}
+```
+
+### Property with access modifiers(속성 및 접근 제어자)
+OOP가 적용된 언어에서는 Encapsulation 개념이 적용되어 있어 Access modifiers 를 통해 접근 가능한 범위를 설정할 수 있다.
+* Public: 모든 members(properties, fields, methods, functions)의 기본 값이다. 아무런 제한이 없이 접근 가능하다.
+* Private: 해당 members가 해당 class 내 에서만 접근 가능하다.
+* Protected: private 와 비슷하지만 추가적으로 해당 members가 소속된 class를 상속받은 클래스에서 사용할 수 있다는 점이 다르다. 
+
+### Static method
+static method 는 class에 binding 된 method가 된다.  
+
+
+New 로 객체를 생성하지 않는다.(constructor가 없다.) 
+static method 는 클래스의 인스턴스 없이 호출이 가능하기에 보통 유틸리티 함수를 만드는데 사용된다.
 ### ES5 vs ES6
 ES5
 ```js
@@ -156,22 +187,7 @@ class Person {
 }
 ```
 
-### Property with access modifiers(속성 및 접근 제어자)
-OOP가 적용된 언어에서는 Encapsulation 개념이 적용되어 있어 Access modifiers 를 통해 접근 가능한 범위를 설정할 수 있다.
-* Public: 모든 members(properties, fields, methods, functions)의 기본 값이다. 아무런 제한이 없이 접근 가능하다.
-* Private: 해당 members가 해당 class 내 에서만 접근 가능하다.
-* Protected: private 와 비슷하지만 추가적으로 해당 members가 소속된 class를 상속받은 클래스에서 사용할 수 있다는 점이 다르다. 
-
-### Static method
-New 로 객체를 생성하지 않는다.(constructor가 없다.) 
-static method 는 클래스의 인스턴스 없이 호출이 가능하기에 보통 유틸리티 함수를 만드는데 사용된다.
-
 ## References
-* nest.js: https://wikidocs.net/147787
-* nest.js + typeORM + PostgreSQL: https://medium.com/@feedbotstar/nest-js-typeorm-postgresql-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0-153c3a55aba1
-* https://kimmanbo.tistory.com/18
-* https://velog.io/@qnfmtm666/2.-NestJS-NestJS-%EB%B0%95%EC%82%B4%EB%82%B4%EA%B8%B0-%EC%8B%9C%EC%9E%91%ED%95%98%EC%9E%90
-* https://m.blog.naver.com/sssang97/221942419992 
 * https://jongdai.tistory.com/67 (oop)
 * https://yamoo9.gitbook.io/typescript/ (For learn typescript oop)
-* https://hong-p.github.io/javascript/javascript-deepdive-ch25/
+* https://hong-p.github.io/javascript/javascript-deepdive-ch25/ (for learn class !Important)
