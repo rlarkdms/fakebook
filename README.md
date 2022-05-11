@@ -124,4 +124,5 @@ Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 �
 * nest.js + typeORM + PostgreSQL: https://medium.com/@feedbotstar/nest-js-typeorm-postgresql-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0-153c3a55aba1
 * https://kimmanbo.tistory.com/18
 * https://velog.io/@qnfmtm666/2.-NestJS-NestJS-%EB%B0%95%EC%82%B4%EB%82%B4%EA%B8%B0-%EC%8B%9C%EC%9E%91%ED%95%98%EC%9E%90
-* https://m.blog.naver.com/sssang97/221942419992 <- good
+* https://m.blog.naver.com/sssang97/221942419992 
+* https://jongdai.tistory.com/67 (oop)
