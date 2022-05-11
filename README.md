@@ -27,6 +27,111 @@ $ yarn install # Only use first
 $ npm run start:dev
 ```
 
+# Object Oriented Programming with TypeScript
+## Class
+### Introduction
+class 는 constructor(생성자) 함수를 가르키며, new 로 호출되어 instance 를 생성한다.  
+class 선언문은 runtime 이전에 먼저 실행된다.
+
+### Method
+클래스 몸체에 정의할 수 있는 methods 는 다음과 같다.  
+* constructor
+* prototype method
+* static method
+#### Constructor
+constructor 는 instance 를 생성하고 초기화 하기 위한 특수한 메서드다.    
+constructor 는 생략 가능하지만 instance 및 instance property 를 초기화 하려면 생략하면 안된다.  
+인수로 초기값을 전달하면 초기값은 constructor 에 전달된다.  
+(ES)ECMAScript 사양에 따르면 Instance property 는 반드시 constructor 내부에서 정의해야 한다.
+```js
+// ES6
+class Person {
+    constructor(name, address) {
+        this.name = name;
+        this.address = address;
+    }
+}
+const me = new Person('andrew', 'korea');
+console.log(me); // Person {name: "andrew", address: "korea"}
+```
+#### Prototype method
+class 몸체에 정의한 method는 기본적으로 prototype method 가 된다.
+```js
+// ES6
+class Person {
+    constructor(name){
+        this.name = name;
+    }
+    hi (){
+        console.log(this.name);
+    }
+}
+new Person("andrew").hi(); //andrew
+```
+#### Static method
+static method 는 instance 를 생성하지 않아도 호출할 수 있는 Method 를 말한다.
+```js
+// ES5
+// Contructor function
+function Person(name) {
+    this.name = name; // not used at static method
+}
+// Static method
+Person.hi = function () {
+    console.log("hi");
+}
+```
+class에 binding 된 method가 된다.
+#### Static method vs Prototype method
+1. static method 는 클래스로 호출하고 prototype method는 인스턴스로 호출한다.
+2. static method 는 instance property 를 참조할 수 없지만 prototype method 는 instance property 를 참조할 수 있다.
+
+### Property with access modifiers(속성 및 접근 제어자)
+OOP가 적용된 언어에서는 Encapsulation 개념이 적용되어 있어 Access modifiers 를 통해 접근 가능한 범위를 설정할 수 있다.
+* Public: 모든 members(properties, fields, methods, functions)의 기본 값이다. 아무런 제한이 없이 접근 가능하다.
+* Private: 해당 members가 해당 class 내 에서만 접근 가능하다.
+* Protected: private 와 비슷하지만 추가적으로 해당 members가 소속된 class를 상속받은 클래스에서 사용할 수 있다는 점이 다르다.
+
+New 로 객체를 생성하지 않는다.(constructor가 없다.)
+static method 는 클래스의 인스턴스 없이 호출이 가능하기에 보통 유틸리티 함수를 만드는데 사용된다.
+### ES5 vs ES6
+ES5
+```js
+var Person = (function(){
+    //constructor
+    function Person(name) {
+        this.name = name;
+    }
+    //prototype method
+    Person.prototype.sayHi = function() {
+        console.log(this.name);
+    }
+    //static method
+    Person.sayHello = function(){
+        console.log("hello");
+    }
+    return Person;
+}())
+```
+ES6
+```js
+class Person {
+    constructor(name){
+        this.name = name;
+    }
+    //prototype method
+    sayHi() {
+        console.log(this.name);
+    }
+    //static method
+    static sayHello(){
+        console.log("hello");
+    }
+}
+```
+
+---
+
 # Nest.js Study note
 * Nest.js 는 모듈의 집합이다.
 * Nest.js 는 Single Responsibility Principle 에 의해 Controller, Provider(Service, Repository, Factory, Helper, etc...), Module 로 구성되어 있다. 기존 express 와 비교하면 비즈니스 로직을 provider(service)에 정의 하고 Controller 는 url과 연결시키는 역할만 한다.
@@ -113,79 +218,7 @@ private readonly serviceB: ServiceB;
 추가 예정
 CORS and CSRF Token
 
-# Object Oriented Programming with TypeScript
-## Class
-### Introduction
-class 는 constructor(생성자) 함수를 가르키며, new 로 호출되어 instance 를 생성한다.
-class 선언문은 runtime 이전에 먼저 실행된다.
 
-### Method
-클래스 몸체에 정의할 수 있는 methods 는 다음과 같다.
-* constructor
-* prototype method
-* static method
-#### Constructor
-constructor 는 인스턴스를 생성하고 초기화 하기 위한 특수한 메서드다.  
-constructor 는 생략 가능하지만 인스턴스를 초기화 하려면 생략하면 안된다.
-인수로 초기값을 전달하면 초기값은 constructor 에 전달된다.
-```js
-class Person {
-    constructor(name, address) {
-        this.name = name;
-        this.address = address;
-    }
-}
-const me = new Person('andrew', 'korea');
-console.log(me); // Person {name: "andrew", address: "korea"}
-```
-
-### Property with access modifiers(속성 및 접근 제어자)
-OOP가 적용된 언어에서는 Encapsulation 개념이 적용되어 있어 Access modifiers 를 통해 접근 가능한 범위를 설정할 수 있다.
-* Public: 모든 members(properties, fields, methods, functions)의 기본 값이다. 아무런 제한이 없이 접근 가능하다.
-* Private: 해당 members가 해당 class 내 에서만 접근 가능하다.
-* Protected: private 와 비슷하지만 추가적으로 해당 members가 소속된 class를 상속받은 클래스에서 사용할 수 있다는 점이 다르다. 
-
-### Static method
-static method 는 class에 binding 된 method가 된다.  
-
-
-New 로 객체를 생성하지 않는다.(constructor가 없다.) 
-static method 는 클래스의 인스턴스 없이 호출이 가능하기에 보통 유틸리티 함수를 만드는데 사용된다.
-### ES5 vs ES6
-ES5
-```js
-var Person = (function(){
-    //constructor
-    function Person(name) {
-        this.name = name;
-    }
-    //prototype method
-    Person.prototype.sayHi = function() {
-        console.log(this.name);
-    }
-    //static method
-    Person.sayHello = function(){
-        console.log("hello");
-    }
-    return Person;
-}())
-```
-ES6
-```js
-class Person {
-    constructor(name){
-        this.name = name;
-    }
-    //prototype method
-    sayHi() {
-        console.log(this.name);
-    }
-    //static method
-    static sayHello(){
-        console.log("hello");
-    }
-}
-```
 
 ## References
 * https://jongdai.tistory.com/67 (oop)
