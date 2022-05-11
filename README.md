@@ -174,4 +174,4 @@ static method 는 클래스의 인스턴스 없이 호출이 가능하기에 보
 * https://m.blog.naver.com/sssang97/221942419992 
 * https://jongdai.tistory.com/67 (oop)
 * https://yamoo9.gitbook.io/typescript/ (For learn typescript oop)
-* https://velog.io/@hchayan/1.-JS-static-%ED%82%A4%EC%9B%8C%EB%93%9C
+* https://hong-p.github.io/javascript/javascript-deepdive-ch25/
