@@ -1,8 +1,8 @@
 import { Controller, Post, Body, UseGuards, Patch } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/jwt.guard';
+import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
-import { SignUpUserDto } from './dto/signup-user.dto';
-import { SignInUserDto } from './dto/signin-user.dto';
+import { SignupDto } from 'src/user/dto/signup.dto';
+import { SigninDto } from 'src/user/dto/signin.dto';
 
 @Controller('user')
 export class UserController {
@@ -11,19 +11,19 @@ export class UserController {
 
     // CREATE
     @Post('signup')
-    async signup(@Body() signUpUserDto: SignUpUserDto) {
+    async signup(@Body() signUpUserDto: SignupDto) {
         return this.usersService.signup(signUpUserDto);
     }
 
     //READ
     @Post('signin')
-    async signin(@Body() signInUserDto: SignInUserDto) {
+    async signin(@Body() signInUserDto: SigninDto) {
         return this.usersService.signin(signInUserDto);
     }
 
     //UPDATE
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(AuthGuard('jwt'))
     @Patch('update')
-    async update(@Body signInUserDto: SignInUserDto) {
+    async update(@Body() signInUserDto: SigninDto) {
     }
 }
