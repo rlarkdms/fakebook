@@ -1,5 +1,5 @@
 # Fakebook
-A facebook cloning project for practice and learn the basic CURD with RESTful API.
+A facebook cloning project for practice and learn the basic CURD with RESTful API.  
 I will add English description as soon.
 
 # Skill stacks
