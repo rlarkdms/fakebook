@@ -26,7 +26,7 @@ $ docker run -d -p 5432:5432 -v /db:/var/lib/postgresql/data --restart unless-st
 $ nest start server
 ```
 
-## Study note
+## Nest.js Study note
 * Nest.js 는 모듈의 집합이다.
 * Nest.js 는 Single Responsibility Principle 에 의해 Controller, Provider(Service, Repository, Factory, Helper, etc...), Module 로 구성되어 있다. 기존 express 와 비교하면 비즈니스 로직을 provider(service)에 정의 하고 Controller 는 url과 연결시키는 역할만 한다.
 * 기능별로 모듈을 생성한다.(E.g Users, Auth...) 
