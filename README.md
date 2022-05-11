@@ -21,9 +21,10 @@ Run postgres on docker
 $ sudo mkdir /db
 $ docker run -d -p 5432:5432 -v /db:/var/lib/postgresql/data --restart unless-stopped -e POSTGRES_USER="fakebook" -e POSTGRES_PASSWORD="temppass" -e PGDATA=/var/lib/postgresql/data/pgdata --name fakebook postgres
 ```
-Run nest.js server
+Start nest server for local development environment.
 ```bash
-$ nest start server
+$ yarn install # Only use first
+$ npm run start:dev
 ```
 
 # Nest.js Study note
