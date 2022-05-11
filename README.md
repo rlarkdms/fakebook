@@ -91,7 +91,6 @@ ServiceB():string
 {
     return this.serviceA.funcA();
 }
-
 ```
 
 ## Circular Dependency
@@ -121,11 +120,51 @@ Static method: new 로 객체를 생성하지 않고 즉시 호출가능한 meth
 Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 생성해야하는데 생성된 객체를 instance 라고 한다. `a = new b();`
 
 ## Class
+### ES5 vs ES6
+ES5
+```js
+var Person = (function(){
+    //constructor
+    function Person(name) {
+        this.name = name;
+    }
+    //prototype method
+    Person.prototype.sayHi = function() {
+        console.log(this.name);
+    }
+    //static method
+    Person.sayHello = function(){
+        console.log("hello");
+    }
+    return Person;
+}())
+```
+ES6
+```js
+class Person {
+    constructor(name){
+        this.name = name;
+    }
+    //prototype method
+    sayHi() {
+        console.log(this.name);
+    }
+    //static method
+    static sayHello(){
+        console.log("hello");
+    }
+}
+```
+
 ### Property with access modifiers(속성 및 접근 제어자)
 OOP가 적용된 언어에서는 Encapsulation 개념이 적용되어 있어 Access modifiers 를 통해 접근 가능한 범위를 설정할 수 있다.
 * Public: 모든 members(properties, fields, methods, functions)의 기본 값이다. 아무런 제한이 없이 접근 가능하다.
 * Private: 해당 members가 해당 class 내 에서만 접근 가능하다.
 * Protected: private 와 비슷하지만 추가적으로 해당 members가 소속된 class를 상속받은 클래스에서 사용할 수 있다는 점이 다르다. 
+
+### Static method
+New 로 객체를 생성하지 않는다.(constructor가 없다.) 
+static method 는 클래스의 인스턴스 없이 호출이 가능하기에 보통 유틸리티 함수를 만드는데 사용된다.
 
 ## References
 * nest.js: https://wikidocs.net/147787
@@ -135,3 +174,4 @@ OOP가 적용된 언어에서는 Encapsulation 개념이 적용되어 있어 Acc
 * https://m.blog.naver.com/sssang97/221942419992 
 * https://jongdai.tistory.com/67 (oop)
 * https://yamoo9.gitbook.io/typescript/ (For learn typescript oop)
+* https://velog.io/@hchayan/1.-JS-static-%ED%82%A4%EC%9B%8C%EB%93%9C
