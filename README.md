@@ -11,7 +11,7 @@ I will add English description as soon.
 * Docker
 * 
 # To-Do
-* 오늘 진도: https://hong-p.github.io/javascript/javascript-deepdive-ch25/#54-%EC%A0%95%EC%A0%81-%EB%A9%94%EC%84%9C%EB%93%9C%EC%99%80-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85-%EB%A9%94%EC%84%9C%EB%93%9C%EC%9D%98-%EC%B0%A8%EC%9D%B4
+* 오늘 진도: https://hong-p.github.io/javascript/javascript-deepdive-ch25/#6%ED%81%B4%EB%9E%98%EC%8A%A4%EC%9D%98-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EA%B3%BC%EC%A0%95
 
 * Refer socar project for refactor this project.
 * Refactor unexpected error.
@@ -44,7 +44,7 @@ class 선언문은 runtime 이전에 먼저 실행된다.
 constructor 는 instance 를 생성하고 초기화 하기 위한 특수한 메서드다.    
 constructor 는 생략 가능하지만 instance 및 instance property 를 초기화 하려면 생략하면 안된다.  
 인수로 초기값을 전달하면 초기값은 constructor 에 전달된다.  
-(ES)ECMAScript 사양에 따르면 Instance property 는 반드시 constructor 내부에서 정의해야 한다.
+(ES)ECMAScript 사양에 따르면 Instance property 는 반드시 constructor 내부에서 정의해야 한다.  
 ```js
 // ES6
 class Person {
@@ -87,6 +87,11 @@ class에 binding 된 method가 된다.
 #### Static method vs Prototype method
 1. static method 는 클래스로 호출하고 prototype method는 인스턴스로 호출한다.
 2. static method 는 instance property 를 참조할 수 없지만 prototype method 는 instance property 를 참조할 수 있다.
+### 클래스의 Instance 생성 과정
+New 연산자와 함께 class 를 호출하면 암묵적으로 빈 객체(instance) 가 생성된다.  
+빈 객체는 this 에 binding 된다.  
+constructor 내부의 코드가 실행되며 this 에 binding 되어있는 instance 를 초기화 한다.  <-- 이해 잘 안됨
+
 
 ### Property with access modifiers(속성 및 접근 제어자)
 OOP가 적용된 언어에서는 Encapsulation 개념이 적용되어 있어 Access modifiers 를 통해 접근 가능한 범위를 설정할 수 있다.
