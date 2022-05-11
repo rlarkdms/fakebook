@@ -118,10 +118,13 @@ CORS and CSRF Token
 Method: 객체의 기능을 구현하기 위해서 클래스 내부에 구현되는 함수.  
 Static method: new 로 객체를 생성하지 않고 즉시 호출가능한 method. class 를 통해 instance 를 생성할 필요 없이 
 Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 생성해야하는데 생성된 객체를 instance 라고 한다. `a = new b();`
+
 ## Class
 ### Property with access modifiers(속성 및 접근 제어자)
-
-
+OOP가 적용된 언어에서는 Encapsulation 개념이 적용되어 있어 Access modifiers 를 통해 접근 가능한 범위를 설정할 수 있다.
+* Public: 모든 members(properties, fields, methods, functions)의 기본 값이다. 아무런 제한이 없이 접근 가능하다.
+* Private: 해당 members가 해당 class 내 에서만 접근 가능하다.
+* Protected: private 와 비슷하지만 추가적으로 해당 members가 소속된 class를 상속받은 클래스에서 사용할 수 있다는 점이 다르다. 
 
 ## References
 * nest.js: https://wikidocs.net/147787
