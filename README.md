@@ -13,6 +13,7 @@ I will add English description as soon.
 ## To-Do
 * Refer socar project for refactor this project.
 * Refactor unexpected error.
+* Learn about oop's fundamental concepts.
 
 ## How to use
 ### Run postgres on docker
