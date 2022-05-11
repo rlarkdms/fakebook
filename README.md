@@ -113,7 +113,7 @@ private readonly serviceB: ServiceB;
 추가 예정
 CORS and CSRF Token
 
-# Object Oriented Programming Study note
+# Object Oriented Programming with TypeScript
 ## Dictionary
 Method: 객체의 기능을 구현하기 위해서 클래스 내부에 구현되는 함수.  
 Static method: new 로 객체를 생성하지 않고 즉시 호출가능한 method. class 를 통해 instance 를 생성할 필요 없이 
