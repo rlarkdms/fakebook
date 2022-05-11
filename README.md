@@ -2,31 +2,31 @@
 The fakebook is a facebook cloning project for practice basic CURD with RESTful API.  
 I will add English description as soon.
 
-## Skill stacks
+# Skill stacks
 * Node.js
 * TypeScript
 * Nest.js
 * TypeORM
 * PostgreSQL
 * Docker
-
-## To-Do
+* 
+# To-Do
 * Refer socar project for refactor this project.
 * Refactor unexpected error.
 * Learn about oop's fundamental concepts.
 
-## How to use
-### Run postgres on docker
+# How to use 
+Run postgres on docker
 ```bash
 $ sudo mkdir /db
 $ docker run -d -p 5432:5432 -v /db:/var/lib/postgresql/data --restart unless-stopped -e POSTGRES_USER="fakebook" -e POSTGRES_PASSWORD="temppass" -e PGDATA=/var/lib/postgresql/data/pgdata --name fakebook postgres
 ```
-### Run nest.js server
+Run nest.js server
 ```bash
 $ nest start server
 ```
 
-## Nest.js Study note
+# Nest.js Study note
 * Nest.js 는 모듈의 집합이다.
 * Nest.js 는 Single Responsibility Principle 에 의해 Controller, Provider(Service, Repository, Factory, Helper, etc...), Module 로 구성되어 있다. 기존 express 와 비교하면 비즈니스 로직을 provider(service)에 정의 하고 Controller 는 url과 연결시키는 역할만 한다.
 * 기능별로 모듈을 생성한다.(E.g Users, Auth...) 
@@ -35,7 +35,7 @@ $ nest start server
 * passport 의 authentication method 는 passport-local 방식과 passport-jwt 방식 이 있다.
 main.ts 는 Nest.js 의 Entry Point(EP) 이다. 
 
-### Data Transfer Object(DTO) and Pipe
+## Data Transfer Object(DTO) and Pipe
 서버로 요청을 전달하거나 응답을 받을때는 규격화된 형식을 쓴다.  
 매번 매개변수나 로직을 조작해서 수행하게 되면 별로 좋지 않으므로 해당 요청과 응답에 대한 형식을 클래스로 만들어 두면 Nest에서 자동으로 변환을 해준다.  
 pipe는 이러한 일들을 가능하도록 만들어준다.  
@@ -68,7 +68,7 @@ app.useGlobalPipes(new ValidationPipe({
 
 ```
 
-### Dependency Injection
+## Dependency Injection
 Class 에 `@Injectable()` decorator 가 붙으면 의존성 주입의 대상이 된다.
 각각의 구현된 기능들을 클래스로 분리해서 필요할 때 마다 주입해 사용할 수 있도록 하는 것.
 
@@ -93,7 +93,7 @@ ServiceB():string
 
 ```
 
-### Circular Dependency
+## Circular Dependency
 Circular Dependency 는 각 모듈이 서로를 참조할 경우 발생하는 순환 참조 문제이다.
 아래와 같이 해결이 가능하다.
 ```ts
@@ -109,17 +109,19 @@ private readonly serviceA: ServiceA;
 private readonly serviceB: ServiceB;
 ```
 
-### Security
+## Security
 추가 예정
 CORS and CSRF Token
 
-## Object Oriented Programming Study note
+# Object Oriented Programming Study note
+## Dictionary
 Method: 객체의 기능을 구현하기 위해서 클래스 내부에 구현되는 함수.  
 Static method: new 로 객체를 생성하지 않고 즉시 호출가능한 method. class 를 통해 instance 를 생성할 필요 없이 
 Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 생성해야하는데 생성된 객체를 instance 라고 한다. `a = new b();`
+## Class
+### Property with access modifiers(속성 및 접근 제어자)
 
-static method 는 그럼 해당 클래스 내에서만 쓸 기능을 만들때 주로 쓰나?
-아니라면 static method 가 가지는 이점이란?
+
 
 ## References
 * nest.js: https://wikidocs.net/147787
