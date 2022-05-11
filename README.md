@@ -99,10 +99,11 @@ ServiceB():string
 추가 예정
 CORS and CSRF Token
 
-## Object Oriented Programming dictionary
+## Object Oriented Programming Study note
 Method: 객체의 기능을 구현하기 위해서 클래스 내부에 구현되는 함수.  
 Static method: new 로 객체를 생성하지 않고 즉시 호출가능한 method.  
 Instatnce: method 는 호출이 되기 위해서 클래스로부터 객체를 생성해야하는데 생성된 객체를 instance 라고 한다. `a = new b();`
+
 
 ## References
 * nest.js: https://wikidocs.net/147787
