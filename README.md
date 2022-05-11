@@ -93,7 +93,20 @@ ServiceB():string
 ```
 
 ### Circular Dependency
-순환 참조 문제이다. 각 모듈 A, B에 `forwardRef(()=> ModuleA); forwardRef(()=> ModuleB);`해주면 된다.
+Circular Dependency 는 각 모듈이 서로를 참조할 경우 발생하는 순환 참조 문제이다.
+아래와 같이 해결이 가능하다.
+```ts
+// b.module.ts
+forwardRef(()=> ModuleA);
+// a.module.ts
+forwardRef(()=> ModuleB);
+// b.service.ts
+@Inject(forwardRef(()=> ModuleA))
+private readonly serviceA: ServiceA;
+// a.service.ts
+@Inject(forwardRef(()=> ModuleB))
+private readonly serviceB: ServiceB;
+```
 
 ### Security
 추가 예정
