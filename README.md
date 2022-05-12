@@ -39,16 +39,19 @@ class 선언문은 runtime 이전에 먼저 실행된다.
 * prototype method
 * static method
 #### Constructor
-constructor 는 instance 를 생성하고 초기화 하기 위한 특수한 메서드다.    
+constructor 는 instance 를 생성하고  초기화 하기 위한 특수한 메서드다.    
 constructor 는 생략 가능하지만 instance 및 instance property 를 초기화 하려면 생략하면 안된다.  
 인수로 초기값을 전달하면 초기값은 constructor 에 전달된다.  
 (ES)ECMAScript 사양에 따르면 Instance property 는 반드시 constructor 내부에서 정의해야 한다.  
 ```js
 // ES6
 class Person {
+    private global_declare: string;
     constructor(name, address) {
+        //member variable initial
         this.name = name;
         this.address = address;
+        this.global_declare = "hi";
     }
 }
 const me = new Person('andrew', 'korea');
@@ -245,7 +248,7 @@ private readonly serviceB: ServiceB;
 * PreconditionFailedException
 
 ## Security
-추가 예정
+추가 예정 
 CORS and CSRF Token
 
 
