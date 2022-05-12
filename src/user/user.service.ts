@@ -54,4 +54,8 @@ export class UserService {
             throw new InternalServerErrorException("Signin failed")
         }
     }
+
+    async update(updateDto: UpdateDto): Promise<UpdateDto> {
+        return updateDto
+    }
 }

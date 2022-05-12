@@ -1,29 +1,34 @@
-import { Controller, Post, Body, UseGuards, Patch } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
 
+/* RESTful API
+ * @Get: signin
+ * @Post: signup
+ * @Patch: user information update
+ * @Delete: user delete
+ * */
 @Controller('user')
 export class UserController {
-    constructor(private readonly usersService: UserService) {
-    }
+    constructor(private readonly userService: UserService) {}
 
-    // CREATE
-    @Post('signup')
-    async signup(@Body() signupDto: SignupDto) {
-        return this.usersService.signup(signupDto);
-    }
-
-    //READ
-    @Post('signin')
+    //signin
+    @Get()
     async signin(@Body() signinDto: SigninDto) {
-        return this.usersService.signin(signinDto);
+        return this.userService.signin(signinDto);
     }
 
-    //UPDATE
-    @UseGuards(AuthGuard('jwt'))
-    @Patch('update')
-    async update(@Body() updateDto: UpdateDto) {
+    //signup
+    @Post()
+    async signup(@Body() signupDto: SignupDto) {
+        return this.userService.signup(signupDto);
+    }
 
+    //Update user information
+    @UseGuards(AuthGuard('jwt'))
+    @Patch()
+    async update(@Body() updateDto: UpdateDto) {
+        return this.userService.update(updateDto);
     }
 }

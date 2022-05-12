@@ -1,28 +1,44 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsEmail, IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsOptional, IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
-export class SigninDto {
+class Password{
     @IsNotEmpty()
     @IsString()
+    @MinLength(8)
+    @MaxLength(30)
+    password: string;
+}
+
+export class SigninDto extends PartialType(Password) {
+    @IsNotEmpty()
+    @IsString()
+    @MinLength(4)
     @MaxLength(15)
-    readonly id: string;
-
-    @IsNotEmpty()
-    @IsString()
-    @MaxLength(60)
-    readonly password: string;
+    id: string;
 }
 
 export class SignupDto extends PartialType(SigninDto) {
     @IsNotEmpty()
     @IsString()
+    @MinLength(4)
     @MaxLength(30)
-    readonly name: string;
+    name: string;
 
     @IsNotEmpty()
     @IsEmail()
     @MaxLength(30)
-    readonly email: string;
+    email: string;
 }
 
-export class UpdateDto extends PartialType(SignupDto){}
+export class UpdateDto extends PartialType(Password){
+    @IsOptional()
+    @IsString()
+    @MinLength(4)
+    @MaxLength(30)
+    name: string;
+
+    @IsOptional()
+    @IsEmail()
+    @MaxLength(30)
+    email: string;
+}
