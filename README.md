@@ -222,6 +222,28 @@ private readonly serviceA: ServiceA;
 private readonly serviceB: ServiceB;
 ```
 
+## Exception handling
+* BadRequestException
+* UnauthorizedException
+* NotFoundException
+* ForbiddenException
+* NotAcceptableException
+* RequestTimeoutException
+* ConflictException
+* GoneException
+* HttpVersionNotSupportedException
+* PayloadTooLargeException
+* UnsupportedMediaTypeException
+* UnprocessableEntityException
+* InternalServerErrorException
+* NotImplementedException
+* ImATeapotException
+* MethodNotAllowedException
+* BadGatewayException
+* ServiceUnavailableException
+* GatewayTimeoutException
+* PreconditionFailedException
+
 ## Security
 추가 예정
 CORS and CSRF Token
