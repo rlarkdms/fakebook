@@ -257,3 +257,4 @@ CORS and CSRF Token
 * https://jongdai.tistory.com/67 (oop)
 * https://yamoo9.gitbook.io/typescript/ (For learn typescript oop)
 * https://hong-p.github.io/javascript/javascript-deepdive-ch25/ (for learn class !Important)
+* https://stackoverflow.com/questions/60889758/how-to-pass-rest-parameters-of-a-function-in-postman-body (postman parameter)
