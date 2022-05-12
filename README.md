@@ -3,9 +3,7 @@ A facebook cloning project for practice and learn the basic CURD with RESTful AP
 I will add English description as soon.
 
 # To-Do
-* Refer socar project for refactor this project.
-* Refactor unexpected error.
-* Learn about oop's fundamental concepts.
+* Implement user Update and Delete feature.
 
 # How to use 
 Run postgres on docker
