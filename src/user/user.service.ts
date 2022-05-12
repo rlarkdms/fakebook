@@ -9,8 +9,7 @@ import {
 } from '@nestjs/common';
 import { getRepository, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SignupDto } from 'src/user/dto/signup.dto';
-import { SigninDto } from 'src/user/dto/signin.dto';
+import { SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
 import { SuccessDto } from 'src/user/dto/response.success.dto';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { AuthService } from 'src/auth/auth.service';
