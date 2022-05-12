@@ -1,9 +1,18 @@
 # Fakebook
+<div>
+<img src="https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=NestJS&logoColor=white"/>
+<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>
+<img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white"/>
+<img src="https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white"/>
+<img src="https://img.shields.io/badge/KFC-F40027?style=flat-square&logo=kfc&logoColor=white"/>
+</div>
+
 A facebook cloning project for practice and learn the basic CURD with RESTful API.  
 I will add English description as soon.
 
 # To-Do
-* Implement user Update and Delete feature.
+
 
 # How to use 
 Run postgres on docker
@@ -30,7 +39,7 @@ class 선언문은 runtime 이전에 먼저 실행된다.
 * static method
 #### Constructor
 constructor 는 instance 를 생성하고  초기화 하기 위한 특수한 메서드다.    
-constructor 는 생략 가능하지만 instance 및 instance property 를 초기화 하려면 생략하면 안된다.  
+constructor 는 생략 가능하지만 instance 및 instance propeasy 를 초기화 하려면 생략하면 안된다.  
 인수로 초기값을 전달하면 초기값은 constructor 에 전달된다.  
 (ES)ECMAScript 사양에 따르면 Instance property 는 반드시 constructor 내부에서 정의해야 한다.  
 ```js
