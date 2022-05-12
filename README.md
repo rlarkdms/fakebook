@@ -11,8 +11,6 @@ I will add English description as soon.
 * Docker
 * 
 # To-Do
-* 오늘 진도: https://hong-p.github.io/javascript/javascript-deepdive-ch25/#6%ED%81%B4%EB%9E%98%EC%8A%A4%EC%9D%98-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EA%B3%BC%EC%A0%95
-
 * Refer socar project for refactor this project.
 * Refactor unexpected error.
 * Learn about oop's fundamental concepts.
