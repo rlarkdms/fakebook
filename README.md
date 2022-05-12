@@ -2,14 +2,6 @@
 A facebook cloning project for practice and learn the basic CURD with RESTful API.  
 I will add English description as soon.
 
-# Skill stacks
-* Node.js
-* TypeScript
-* Nest.js
-* TypeORM
-* PostgreSQL
-* Docker
-
 # To-Do
 * Refer socar project for refactor this project.
 * Refactor unexpected error.
