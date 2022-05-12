@@ -1,10 +1,10 @@
-import { Injectable, Inject, forwardRef } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { SigninDto } from 'src/user/dto/signin.dto';
-import { SignupDto } from 'src/user/dto/signup.dto';
 import { UserEntity } from 'src/user/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { UserService } from "src/user/user.service";
+
 
 @Injectable()
 export class AuthService {
@@ -20,13 +20,10 @@ export class AuthService {
 
     // Return JWT if signin performed as successful
     public async signin(signinDto: SigninDto): Promise<string | null> {
-        const userInfo: any = await this.userService.findUser(signinDto.id);
-        if ( bcrypt.compareSync(signinDto.password, userInfo[0].password) ) {
-            const token = this.jwtService.sign({ signInUserDto: signinDto })
-            console.log(this.jwtService.verify(token, {
-                secret: process.env.JWT_SECRET
-            }))
-            return token
-        } else return null;
+        let { id, password } = signinDto;
+        const userInfo: UserEntity = await this.userService.findUser(id);
+        if ( bcrypt.compareSync(password, userInfo.password) )
+            return this.jwtService.sign(Object.assign({}, userInfo));
+        else return null;
     }
 }

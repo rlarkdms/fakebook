@@ -8,6 +8,6 @@ export class SigninDto {
 
     @IsNotEmpty()
     @IsString()
-    @MaxLength(30)
+    @MaxLength(60)
     readonly password: string;
 }

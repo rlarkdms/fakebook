@@ -1,55 +1,58 @@
-import { Inject, Injectable, forwardRef } from '@nestjs/common';
-import { getRepository } from 'typeorm';
+import {
+    ConflictException,
+    forwardRef,
+    HttpStatus,
+    Inject,
+    Injectable,
+    InternalServerErrorException,
+    NotFoundException
+} from '@nestjs/common';
+import { getRepository, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { HttpStatus } from '@nestjs/common';
-
 import { SignupDto } from 'src/user/dto/signup.dto';
 import { SigninDto } from 'src/user/dto/signin.dto';
-
+import { SuccessDto } from 'src/user/dto/response.success.dto';
 import { UserEntity } from 'src/user/entities/user.entity';
-
 import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(UserEntity)
-        private userRepository: any,
+        private userRepository: Repository<UserEntity>,
         @Inject(forwardRef(() => AuthService))
-        private readonly authService: AuthService
+        private readonly authService: AuthService,
     ) {
         this.userRepository = getRepository(UserEntity);
     }
 
     // return user's information if id is matched. if not, return null
-    public async findUser(userId: SigninDto["id"]): Promise<SignupDto | null> {
-        const userInfo = await this.userRepository.find({ where: { id: userId } });
-        if ( userInfo.length > 0 ) return userInfo;
-        else return null;
+    // This method used on auth too. that is why this is public method
+    async findUser(userId: SigninDto["id"]): Promise<UserEntity | null> {
+        return await this.userRepository.findOne({ id: userId }) ?? null;
     }
 
-    public async signup(signupDto: SignupDto): Promise<{ status: number, message: string }> {
-        const { id, password } = signupDto;
-        if ( await this.findUser(id) ) {
-            return { status: HttpStatus.CONFLICT, message: "Duplicate user id" };
-        } else {
-            const userAdd = this.userRepository.create(signupDto);
-            userAdd.password = await this.authService.hashPassword(password);
-            await this.userRepository.save(userAdd);
-            return { status: HttpStatus.OK, message: "Success" };
+    async signup(signupDto: SignupDto): Promise<SuccessDto> {
+        if ( await this.findUser(signupDto.id) )
+            throw new ConflictException("User ID is already exist");
+        try {
+            let { id, password, name, email } = await this.userRepository.create(signupDto)
+            password = await this.authService.hashPassword(password);
+            await this.userRepository.save({ id, password, name, email });
+            return { statusCode: HttpStatus.OK, message: "Success" };
+        } catch (e) {
+            throw new InternalServerErrorException("Signup failed")
         }
     }
 
-    public async signin(signinDto: SigninDto): Promise<{ status: number, message: string }> {
-        if ( await this.findUser(signinDto.id) ) {
-            const accessToken: string = await this.authService.signin(signinDto);
-            return { status: HttpStatus.OK, message: accessToken }
-        } else {
-            return { status: HttpStatus.NOT_FOUND, message: "Cannot found user" };
+    async signin(signinDto: SigninDto): Promise<SuccessDto> {
+        const { id } = signinDto;
+        if ( !await this.findUser(id) )
+            throw new NotFoundException("Cannot found user");
+        try {
+            return { statusCode: HttpStatus.OK, message: await this.authService.signin(signinDto) }
+        } catch (e) {
+            throw new InternalServerErrorException("Signin failed")
         }
-    }
-
-    public test(): string {
-        return "shit"
     }
 }
