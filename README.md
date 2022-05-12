@@ -88,9 +88,12 @@ class에 binding 된 method가 된다.
 1. static method 는 클래스로 호출하고 prototype method는 인스턴스로 호출한다.
 2. static method 는 instance property 를 참조할 수 없지만 prototype method 는 instance property 를 참조할 수 있다.
 ### 클래스의 Instance 생성 과정
-New 연산자와 함께 class 를 호출하면 암묵적으로 빈 객체(instance) 가 생성된다.  
+New 연산자와 함께 class 를 호출하면 contructor 에 의해 빈 객체(instance) 가 생성된다.  
 빈 객체는 this 에 binding 된다.  
-constructor 내부의 코드가 실행되며 this 에 binding 되어있는 instance 를 초기화 한다.  <-- 이해 잘 안됨
+constructor 내부의 코드가 실행되며 this 에 binding 되어있는 instance 를 초기화 한다.
+#### this keyword
+Object 는 state 를 나타내는 property 와 behavior 를 나타내는 method 를 하나의 논리적인 단위로 묶은 복합적인 자료구조다.  
+동작을 나타내는 method는 자신이 속한 객체의 상태 즉 property 를 참조하고 변경할 수 있어야 한다 이때 자신이 속한 Object 를 식별자를 참조할 수 있어야 하는데 이때 this 를 사용한다.
 
 
 ### Property with access modifiers(속성 및 접근 제어자)
