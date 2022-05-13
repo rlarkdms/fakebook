@@ -37,6 +37,7 @@ OOP 는 Object 의 status 를 나타내는 데이터와 status 데이터를 조�
 Inheritance 는 OOP의 핵심 개념으로, 어떤 객체의 Property or method 를 다른 Object 가 상속받아 그대로 사용할 수 있는 것을 말한다.  
 Javascript는 prototype 기반으로 상속을 구현하여 **불필요한 중복을 제거한다**. 중복을 제거하는 방법은 가존의 코드를 적극적으로 재사용하는 것이다.
 
+
 ## Class
 ### Introduction
 class 는 constructor(생성자) 함수를 가르키며, new 로 호출되어 instance 를 생성한다.  
