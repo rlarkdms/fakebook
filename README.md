@@ -8,8 +8,8 @@
 <img src="https://img.shields.io/badge/KFC-F40027?style=flat-square&logo=kfc&logoColor=white"/>
 </div>
 
-A facebook cloning project for practice and learn the basic CURD with RESTful API.  
-I will add English description as soon.
+A facebook cloning project for practice and learn the basic CURD with RESTful API.
+A Object Oriented Programming with TypeScript and Nest.js study note section is study note for my own in this article
 
 # To-Do
 * Implement user Update and Delete feature.
@@ -27,6 +27,7 @@ $ npm run start:dev
 ```
 
 # Object Oriented Programming with TypeScript
+OOP 는 프로그램을 명령어 또는 함수의 목록으로 보는 전통적인 imperative programming 의 절차 지향적 관점에서 벗어나 여러 개의 독립적 단위, 즉 Object 의 집합으로 프로그램을 표현하려는 프로그래밍 패러다임을 말한다.
 ## Class
 ### Introduction
 class 는 constructor(생성자) 함수를 가르키며, new 로 호출되어 instance 를 생성한다.  
