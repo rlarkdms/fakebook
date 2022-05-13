@@ -16,9 +16,11 @@ export class UserService {
     ) {
         this.userRepository = getRepository(UserEntity);
     }
+
     private static successResponse(): SuccessDto {
         return { statusCode: HttpStatus.OK, message: "Success" }
     }
+
     // return user's information if id is matched. if not, return null
     // This method used on auth too. that is why this is public method
     async findUser(userId: SigninDto['id']): Promise<UserEntity | null> {
@@ -49,18 +51,19 @@ export class UserService {
     }
 
     async update(targetId: SigninDto['id'], updateDto: UpdateDto): Promise<SuccessDto> {
-        // You can update only 3 field
+        let { id, password, name, email } = await this.findUser(targetId);
+        if ( targetId !== updateDto.id )
+            throw new HttpException("Only can change own informations", HttpStatus.UNAUTHORIZED)
         try {
-            let {id, password, name, email} = await this.findUser(targetId);
             updateDto.password = await this.authService.hashPassword(updateDto.password);
-            this.userRepository.save(Object.assign({id, password, name, email}, updateDto));
+            this.userRepository.save(Object.assign({ id, password, name, email }, updateDto));
             return UserService.successResponse()
         } catch (e) {
             throw new HttpException("User information update failed", HttpStatus.NOT_MODIFIED)
         }
     }
 
-    async delete(targetId): Promise<SuccessDto>{
+    async delete(targetId): Promise<SuccessDto> {
         return UserService.successResponse()
     }
 }

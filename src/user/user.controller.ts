@@ -30,7 +30,7 @@ export class UserController {
     }
 
     //Update user information
-    // ONLY CAN CHANGE OWN SETTINGS
+    // ONLY CAN CHANGE OWN INFORMATIONS
     @UseGuards(AuthGuard('jwt'))
     @Patch()
     async update(@Headers('Authorization') authorization = '', @Body() updateDto: UpdateDto) {
