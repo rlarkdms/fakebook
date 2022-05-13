@@ -27,7 +27,11 @@ $ npm run start:dev
 ```
 
 # Object Oriented Programming with TypeScript
-OOP 는 프로그램을 명령어 또는 함수의 목록으로 보는 전통적인 imperative programming 의 절차 지향적 관점에서 벗어나 여러 개의 독립적 단위, 즉 Object 의 집합으로 프로그램을 표현하려는 프로그래밍 패러다임을 말한다.
+OOP 는 프로그램을 명령어 또는 함수의 목록으로 보는 전통적인 imperative programming 의 절차 지향적 관점에서 벗어나 여러 개의 독립적 단위, 즉 Object 의 집합으로 프로그램을 표현하려는 프로그래밍 패러다임을 말한다.  
+OOP 는 실세계의 실체(사물이나 개념)를 인식적인 철학적 사고를 프로그래밍에 접목하려는 시도에서 시작한다.  
+실체는 특징이나 성질을 나타내는 attribute/property 를 가지고 있고, 이를 통해 실체를 인식하거나 구별할 수 있다.
+
+
 ## Class
 ### Introduction
 class 는 constructor(생성자) 함수를 가르키며, new 로 호출되어 instance 를 생성한다.  
@@ -57,6 +61,7 @@ class Person {
 const me = new Person('andrew', 'korea');
 console.log(me); // Person {name: "andrew", address: "korea"}
 ```
+
 #### Prototype method
 class 몸체에 정의한 method는 기본적으로 prototype method 가 된다.
 ```js
