@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Patch, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
+import { JwtService } from '@nestjs/jwt';
 import { SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
 
 /* RESTful API
@@ -11,7 +12,10 @@ import { SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
  * */
 @Controller('user')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(
+        private readonly userService: UserService,
+        private readonly jwtService: JwtService
+    ) {}
 
     //signin
     @Get()
@@ -26,9 +30,11 @@ export class UserController {
     }
 
     //Update user information
+    // ONLY CAN CHANGE OWN SETTINGS
     @UseGuards(AuthGuard('jwt'))
     @Patch()
-    async update(@Body() updateDto: UpdateDto) {
-        return this.userService.update(updateDto);
+    async update(@Headers('Authorization') authorization = '', @Body() updateDto: UpdateDto) {
+        const token: object = await this.jwtService.verifyAsync(authorization.replace("Bearer ", ""), { secret: process.env.JWT_SECRET })
+        return this.userService.update(JSON.parse(JSON.stringify(token)).id, updateDto);
     }
 }
