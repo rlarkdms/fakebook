@@ -33,13 +33,15 @@ OOP 는 실세계의 실체(사물이나 개념)를 인식적인 철학적 사�
 속성을 통해 여러 개의 값을 하나의 단위로 구성한 복합적인 자료구조를 Object라고 한다.  
 OOP 는 Object 의 status 를 나타내는 데이터와 status 데이터를 조작할 수 있는 behavior 를 하나의 논리적인 단위로 묶어 생각한다 따라서 **객체는 상태 데이터와 동작을 하나의 논리적인 단위로 묶은 복합적인 자료구조다.**  
 
-
+## Inheritance and prototype
+Inheritance 는 OOP의 핵심 개념으로, 어떤 객체의 Property or method 를 다른 Object 가 상속받아 그대로 사용할 수 있는 것을 말한다.  
+Javascript는 prototype 기반으로 상속을 구현하여 **불필요한 중복을 제거한다**. 중복을 제거하는 방법은 가존의 코드를 적극적으로 재사용하는 것이다.
 
 ## Class
 ### Introduction
 class 는 constructor(생성자) 함수를 가르키며, new 로 호출되어 instance 를 생성한다.  
 class 선언문은 runtime 이전에 먼저 실행된다.
-
+ㄴs
 ### Method
 클래스 몸체에 정의할 수 있는 methods 는 다음과 같다.  
 * constructor
