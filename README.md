@@ -29,7 +29,10 @@ $ npm run start:dev
 # Object Oriented Programming with TypeScript
 OOP 는 프로그램을 명령어 또는 함수의 목록으로 보는 전통적인 imperative programming 의 절차 지향적 관점에서 벗어나 여러 개의 독립적 단위, 즉 Object 의 집합으로 프로그램을 표현하려는 프로그래밍 패러다임을 말한다.  
 OOP 는 실세계의 실체(사물이나 개념)를 인식적인 철학적 사고를 프로그래밍에 접목하려는 시도에서 시작한다.  
-실체는 특징이나 성질을 나타내는 attribute/property 를 가지고 있고, 이를 통해 실체를 인식하거나 구별할 수 있다.
+실체는 특징이나 성질을 나타내는 attribute/property 를 가지고 있고, 이를 통해 실체를 인식하거나 구별할 수 있다.  
+속성을 통해 여러 개의 값을 하나의 단위로 구성한 복합적인 자료구조를 Object라고 한다.  
+OOP 는 Object 의 status 를 나타내는 데이터와 status 데이터를 조작할 수 있는 behavior 를 하나의 논리적인 단위로 묶어 생각한다 따라서 **객체는 상태 데이터와 동작을 하나의 논리적인 단위로 묶은 복합적인 자료구조다.**  
+
 
 
 ## Class
