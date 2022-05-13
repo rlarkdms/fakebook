@@ -12,10 +12,6 @@
 A facebook cloning project for practice and learn the basic CURD with RESTful API.
 A Object Oriented Programming with TypeScript and Nest.js study note section is study note for my own in this article
 
-# To-Do
-
-* Implement user Update and Delete feature.
-
 # How to use
 
 Run postgres on docker
