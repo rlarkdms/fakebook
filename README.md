@@ -58,10 +58,12 @@ function Circle(radius) {
 
 const circle0 = new Circle(1);
 const circle1 = new Circle(1); // getArea method created again! (memory leak)
+
 // Good Code
 function Circle(radius) {
-    this.radius = radius; 
+    this.radius = radius;
 }
+
 Circle.prototype.getArea = function () {
     return Math.PI * this.radius ** 2;
 }
