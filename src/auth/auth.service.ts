@@ -13,7 +13,7 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) {}
 
-    async hashPassword(password: string): Promise<string> {
+    static async hashPassword(password: string): Promise<string> {
         return await bcrypt.hash(password, 10);
     }
 

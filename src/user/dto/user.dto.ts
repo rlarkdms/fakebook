@@ -48,3 +48,5 @@ export class UpdateDto extends IdDto{
     @MaxLength(30)
     email: string;
 }
+
+export class DeleteDto extends SigninDto{}

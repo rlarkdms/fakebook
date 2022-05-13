@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Headers, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Headers, Patch, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { JwtService } from '@nestjs/jwt';
-import { SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
+import { DeleteDto, SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
 
 /* RESTful API
  * @Get: signin
@@ -14,27 +14,37 @@ import { SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
 export class UserController {
     constructor(
         private readonly userService: UserService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
     ) {}
 
-    //signin
     @Get()
     async signin(@Body() signinDto: SigninDto) {
         return this.userService.signin(signinDto);
     }
 
-    //signup
     @Post()
     async signup(@Body() signupDto: SignupDto) {
         return this.userService.signup(signupDto);
     }
 
-    //Update user information
     // ONLY CAN CHANGE OWN INFORMATIONS
     @UseGuards(AuthGuard('jwt'))
     @Patch()
-    async update(@Headers('Authorization') authorization = '', @Body() updateDto: UpdateDto) {
-        const token: object = await this.jwtService.verifyAsync(authorization.replace("Bearer ", ""), { secret: process.env.JWT_SECRET })
-        return this.userService.update(JSON.parse(JSON.stringify(token)).id, updateDto);
+    async update(@Headers('Authorization') authorization: string, @Body() updateDto: UpdateDto) {
+        const userInfo = await this.extractJwt(authorization)
+        return this.userService.update(userInfo.id, updateDto);
+    }
+
+    @UseGuards(AuthGuard('jwt'))
+    @Delete()
+    async delete(@Headers('Authorization') authorization: string, @Body() deleteDto: DeleteDto) {
+        const userInfo = await this.extractJwt(authorization);
+        return this.userService.delete(userInfo.id, deleteDto)
+    }
+
+    private async extractJwt(authorization: string) {
+        const token = authorization.replace("Bearer ", "");
+        const userInfo = await this.jwtService.verifyAsync(token, { secret: process.env.JWT_SECRET })
+        return JSON.parse(JSON.stringify(userInfo));
     }
 }
