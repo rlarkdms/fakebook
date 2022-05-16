@@ -87,7 +87,7 @@ class 선언문은 runtime 이전에 먼저 실행된다.
 #### Constructor
 
 constructor 는 instance 를 생성하고 초기화 하기 위한 특수한 메서드다.    
-constructor 는 생략 가능하지만 instance 및 instance propeasy 를 초기화 하려면 생략하면 안된다.  
+constructor 는 생략 가능하지만 instance 및 instance property 를 초기화 하려면 생략하면 안된다.  
 인수로 초기값을 전달하면 초기값은 constructor 에 전달된다.  
 (ES)ECMAScript 사양에 따르면 Instance property 는 반드시 constructor 내부에서 정의해야 한다.
 
@@ -219,15 +219,19 @@ class Person {
 ---
 
 # Database with prisma Study note
+
 Primary Key(PK): 각 row 의 정보를 식별할 수 있는 정보 e.g. id, xid 를 표현한다.  
-Foreign Key(FK): 참조하는 테이블과 참조되는 테이블의 관계를 나타낸다. 
+Foreign Key(FK): 참조하는 테이블과 참조되는 테이블의 관계를 나타낸다.
 e.g. 학생-수업 테이블은 학생 테이블과 수업 테이블의 관계를 1:N 관계로 나타내기 위한 테이블이므로 학생 테이블과 수업테이블을 참조하여야 한다.
-여기서 학생코드(PK) 와 수업정보를 식별하는 수업코드(PK) 테이블이 구성되며, 
+여기서 학생코드(PK) 와 수업정보를 식별하는 수업코드(PK) 테이블이 구성되며,
 이렇게 다른 테이블의 정보를 참조하기 위한 학생코드롸 수업코드는 학생 수업 테이블 내에서 FK 가 된다.
+
+`yarn prisma migrate dev`
 ## Data source
 
 어떤 DB 와 연결할 것인지 설정하는 부분.  
 Prisma 에서 지원하는 DB(PostgreSQL, MySQL, SQLite) 와 연결할 수 있으며, 아래와 같이 작성한다.(yarn prisma init)
+
 ```text
 datasource db {
   provider = "postgresql"
@@ -236,20 +240,25 @@ datasource db {
 ```
 
 ## Generator
+
 prisma client 명령어 사용시에 생성될 내용(prisma binary file)을 정의 하는 부분이다.
 Cross platform 을 위해 사용되는 듯 하다.(I guess)  
 아래와 같이 작성하면 prisma client 가 사용하게 될 binary file 을 사용중인 환경의 Operating System 에 맞춰 생성하게 된다.
+
 ```text
 generator client {
   provider = "prisma-client-js"
 }
 ```
+
 ## Data model definitions
+
 > https://www.prisma.io/docs/concepts/components/prisma-schema/data-model
 
 DB 에 대한 스키마를 정의하는 부분으로 model, attributes, enum 부분으로 나뉜다.  
 model(table, entity(abstract), record(value)): 관계형 데이터베이스에서 table에 해당하고, 여러개의 fields 로 구성되어 있다.  
-[attribute, field(column)](https://www.prisma.io/docs/concepts/components/prisma-schema/data-model#defining-attributes): field 와 model 에 대한 함수(@id, @unique)  
+[attribute, field(column)](https://www.prisma.io/docs/concepts/components/prisma-schema/data-model#defining-attributes):
+field 와 model 에 대한 함수(@id, @unique)  
 enum: C에서 #define 매크로와 비슷하다.
 
 ```
@@ -290,9 +299,29 @@ enum Role {
   ADMIN
 }
 ```
+
 ## Data model
+
 > https://www.prisma.io/docs/concepts/components/prisma-schema/relations
 
+model 간의 관계를 정의하기 위해 @relation attribute 를 정의해야한다
+
+```text
+model User {
+  id      Int            @id @default(autoincrement())
+  posts   Post[]
+}
+model Post {
+  id         Int         @id @default(autoincrement())
+  author     User        @relation(fields: [authorId], references: [id])
+  authorId   Int         
+}
+```
+
+author 와 posts field 는 두 model 간의 관계를 정의한 field column 값으로 db에는 드러나지 않는 prisma client 에서만 다루는 값이다.
+
+### 1:1 relation
+내일 직접 try 후에 정리하자(cross check)
 
 ---
 
