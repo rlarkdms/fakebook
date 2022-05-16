@@ -218,6 +218,84 @@ class Person {
 
 ---
 
+# Database with prisma Study note
+Primary Key(PK): 각 row 의 정보를 식별할 수 있는 정보 e.g. id, xid 를 표현한다.  
+Foreign Key(FK): 참조하는 테이블과 참조되는 테이블의 관계를 나타낸다. 
+e.g. 학생-수업 테이블은 학생 테이블과 수업 테이블의 관계를 1:N 관계로 나타내기 위한 테이블이므로 학생 테이블과 수업테이블을 참조하여야 한다.
+여기서 학생코드(PK) 와 수업정보를 식별하는 수업코드(PK) 테이블이 구성되며, 
+이렇게 다른 테이블의 정보를 참조하기 위한 학생코드롸 수업코드는 학생 수업 테이블 내에서 FK 가 된다.
+## Data source
+
+어떤 DB 와 연결할 것인지 설정하는 부분.  
+Prisma 에서 지원하는 DB(PostgreSQL, MySQL, SQLite) 와 연결할 수 있으며, 아래와 같이 작성한다.(yarn prisma init)
+```text
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+```
+
+## Generator
+prisma client 명령어 사용시에 생성될 내용(prisma binary file)을 정의 하는 부분이다.
+Cross platform 을 위해 사용되는 듯 하다.(I guess)  
+아래와 같이 작성하면 prisma client 가 사용하게 될 binary file 을 사용중인 환경의 Operating System 에 맞춰 생성하게 된다.
+```text
+generator client {
+  provider = "prisma-client-js"
+}
+```
+## Data model definitions
+> https://www.prisma.io/docs/concepts/components/prisma-schema/data-model
+
+DB 에 대한 스키마를 정의하는 부분으로 model, attributes, enum 부분으로 나뉜다.  
+model(table, entity(abstract), record(value)): 관계형 데이터베이스에서 table에 해당하고, 여러개의 fields 로 구성되어 있다.  
+[attribute, field(column)](https://www.prisma.io/docs/concepts/components/prisma-schema/data-model#defining-attributes): field 와 model 에 대한 함수(@id, @unique)  
+enum: C에서 #define 매크로와 비슷하다.
+
+```
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+  role    Role     @default(USER)
+  posts   Post[]
+  profile Profile?
+}
+
+model Profile {
+  id     Int    @id @default(autoincrement())
+  bio    String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+model Post {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  title      String
+  published  Boolean    @default(false)
+  author     User       @relation(fields: [authorId], references: [id])
+  authorId   Int
+  categories Category[] @relation(references: [id])
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String
+  posts Post[] @relation(references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+```
+## Data model
+> https://www.prisma.io/docs/concepts/components/prisma-schema/relations
+
+
+---
+
 # Nest.js Study note
 
 * Nest.js 는 모듈의 집합이다.
@@ -255,8 +333,8 @@ remove(@Body()
 deleteMemo: DeleteMemo
 )
 {
-    const { userId, email } = deleteMemo;
-    return `memo deleted userid: ${ userId }, email: ${ email }`;
+    const {userId, email} = deleteMemo;
+    return `memo deleted userid: ${userId}, email: ${email}`;
 }
 
 // main.ts
@@ -278,14 +356,15 @@ Injectable 클래스를 컨트롤러에서 사용할 수 있게 하려면 해당
 ```ts
 //user.module.ts
 @Module({
-    providers: [ ServiceA ]
+    providers: [ServiceA]
 })
 // user.service.ts
 @Injectable()
 export class UserService {
     constructor(
         private serviceA: ServiceA
-    ) {}
+    ) {
+    }
 }
 
 ...
@@ -356,3 +435,6 @@ CORS and CSRF Token
 * https://hong-p.github.io/javascript/javascript-deepdive-ch25/ (for learn class !Important)
 * https://stackoverflow.com/questions/60889758/how-to-pass-rest-parameters-of-a-function-in-postman-body (postman
   parameter)
+* https://sdy-study.tistory.com/79 (prisma)
+* https://hanamon.kr/%EA%B4%80%EA%B3%84%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%A4%EA%B3%84-%EA%B4%80%EA%B3%84-%EC%A2%85%EB%A5%98/
+* 
