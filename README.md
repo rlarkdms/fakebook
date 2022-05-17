@@ -219,7 +219,7 @@ class Person {
 
 ---
 
-# Database with prisma Study note
+# RDBMS with prisma Study note
 
 Primary Key(PK): 각 row 의 정보를 식별할 수 있는 정보 e.g. id, xid 를 표현한다.  
 Foreign Key(FK): 참조하는 테이블과 참조되는 테이블의 관계를 나타낸다.
@@ -258,7 +258,7 @@ generator client {
 DB 에 대한 스키마를 정의하는 부분으로 model, attributes, enum 부분으로 나뉜다.  
 model(table, entity(abstract), record(value)): 관계형 데이터베이스에서 table에 해당하고, 여러개의 fields 로 구성되어 있다.  
 [attribute, field(column)](https://www.prisma.io/docs/concepts/components/prisma-schema/data-model#defining-attributes):
-field 와 model 에 대한 함수(@id, @unique)  
+field 와 model 에 대한 함수(@id, @unique)   
 enum: C에서 #define 매크로와 비슷하다.
 
 ```
