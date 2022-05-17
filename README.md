@@ -18,8 +18,9 @@ A Object Oriented Programming with TypeScript and Nest.js study note section is 
 Run postgres on docker
 
 ```bash
-$ sudo mkdir /db
-$ docker run -d -p 5432:5432 -v /db:/var/lib/postgresql/data --restart unless-stopped -e POSTGRES_USER="fakebook" -e POSTGRES_PASSWORD="temppass" -e PGDATA=/var/lib/postgresql/data/pgdata --name fakebook postgres
+$ sudo mkdir /db 
+$ yarn prisma migrate dev
+$ docker-compose config && docker-compose up -d
 ```
 
 Start nest server for local development environment.
@@ -226,7 +227,6 @@ e.g. 학생-수업 테이블은 학생 테이블과 수업 테이블의 관계�
 여기서 학생코드(PK) 와 수업정보를 식별하는 수업코드(PK) 테이블이 구성되며,
 이렇게 다른 테이블의 정보를 참조하기 위한 학생코드롸 수업코드는 학생 수업 테이블 내에서 FK 가 된다.
 
-`yarn prisma migrate dev`
 ## Data source
 
 어떤 DB 와 연결할 것인지 설정하는 부분.  
