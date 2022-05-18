@@ -24,15 +24,11 @@ export class UserService {
   ) {}
 
   private static successResponse(message?): SuccessDto {
-    return { statusCode: HttpStatus.OK, message: message ?? 'success' }; // default value is success
+    return { statusCode: HttpStatus.OK, message: message ?? 'success' };
   }
 
-  // return user's information if id is matched. if not, return null
-  // This method used on auth too. that is why this is public method
-  async findUser(userId: SigninDto['id']): Promise<SignupDto | null> {
-    return (
-      (await this.prisma.user.findUnique({ where: { id: userId } })) ?? null
-    );
+  async findUser(id: string): Promise<SignupDto | null> {
+    return (await this.prisma.user.findUnique({ where: { id: id } })) ?? null;
   }
 
   async signin(signinDto: SigninDto): Promise<SuccessDto> {
@@ -52,27 +48,41 @@ export class UserService {
     return UserService.successResponse();
   }
 
-  // changeable: id password email name
-  // can't access other user
-  async update(id: SigninDto['id'], updateDto: UpdateDto): Promise<SuccessDto> {
-    updateDto.password = await AuthService.hashPassword(updateDto.password);
-
+  async update(
+    // ! Issue
+    requestUserId: SigninDto['id'],
+    updateDto: UpdateDto,
+  ): Promise<SuccessDto> {
+    if (
+      !(await AuthService.comparePassword(
+        updateDto.password,
+        (
+          await this.findUser(requestUserId)
+        )['password'],
+      ))
+    )
+      throw new HttpException('Incorrect password', HttpStatus.UNAUTHORIZED);
+    let { id, password, newPassword, name, email } = updateDto;
+    newPassword = await AuthService.hashPassword(newPassword);
     await this.prisma.user.update({
-      where: { idx: (await this.findUser(id))['idx'] },
-      data: updateDto,
+      where: { idx: (await this.findUser(requestUserId))['idx'] },
+      data: { id: id, password: newPassword, name: name, email: email },
     });
     return UserService.successResponse();
   }
 
-  async delete(id: SigninDto['id'], deleteDto: DeleteDto): Promise<SuccessDto> {
+  async delete(
+    requestUserId: SigninDto['id'],
+    deleteDto: DeleteDto,
+  ): Promise<SuccessDto> {
     if (
       !AuthService.comparePassword(
         deleteDto.password,
-        (await this.findUser(id))['password'],
+        (await this.findUser(requestUserId))['password'],
       )
     )
       throw new HttpException('Incorrect password', HttpStatus.UNAUTHORIZED);
-    await this.prisma.user.delete({ where: { id: id } });
+    await this.prisma.user.delete({ where: { id: requestUserId } });
     return UserService.successResponse();
   }
 }

@@ -13,11 +13,13 @@ export class AuthService {
   ) {}
 
   static async hashPassword(password: string): Promise<string | undefined> {
-    /* return hashed password if password is provided. if not, return undefined
-     * null is a value
-     * undefined means do nothing
+    /**
+     * * return hashed password if password is provided. if not, return undefined
+     * * below is prisma description
+     * * null is a value
+     * * undefined means do nothing
      */
-    return password ?? false ? await bcrypt.hash(password, 10) : undefined;
+    return password ? await bcrypt.hash(password, 10) : undefined;
   }
 
   static comparePassword(
@@ -27,15 +29,21 @@ export class AuthService {
     return bcrypt.compare(rawPassword, hashPassword);
   }
 
-  // Return JWT if signin performed as successful
-  // only YOU can update your information
-  async generateToken(userDto: SigninDto): Promise<string | null> {
-    const { id, name, email, password } = Object.assign(
-      {},
-      await this.userService.findUser(userDto.id),
+  extractJwt(authorization: string) {
+    const token = authorization.replace('Bearer ', '');
+    const userInfo = this.jwtService.verify(token, {
+      secret: process.env.JWT_SECRET,
+    });
+    return JSON.parse(JSON.stringify(userInfo));
+  }
+
+  async generateToken(signinDto: SigninDto): Promise<string | null> {
+    const { id, password, name, email } = await this.userService.findUser(
+      signinDto.id,
     );
-    if (AuthService.comparePassword(userDto.password, password))
+    if (await AuthService.comparePassword(signinDto['password'], password)) {
       return this.jwtService.sign({ id, name, email });
-    else return null;
+    }
+    return null;
   }
 }

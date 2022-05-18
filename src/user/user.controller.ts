@@ -15,20 +15,20 @@ import {
   UpdateDto,
 } from 'src/user/dto/user.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { UserService } from './user.service';
-import { JwtService } from '@nestjs/jwt';
+import { UserService } from 'src/user/user.service';
+import { AuthService } from 'src/auth/auth.service';
 
-/* RESTful API
- * @Get: signin
- * @Post: signup
- * @Patch: user information update
- * @Delete: user delete
- * */
+/**
+ * * @Get: signin
+ * * @Post: signup
+ * * @Patch: user information update
+ * * @Delete: user delete
+ */
 @Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private readonly jwtService: JwtService,
+    private readonly authService: AuthService,
   ) {}
 
   @Get()
@@ -41,15 +41,16 @@ export class UserController {
     return this.userService.signup(signupDto);
   }
 
-  // ONLY CAN CHANGE OWN INFORMATIONS
   @UseGuards(AuthGuard('jwt'))
   @Patch()
   async update(
     @Headers('Authorization') authorization: string,
     @Body() updateDto: UpdateDto,
   ) {
-    const userInfo = await this.extractJwt(authorization);
-    return this.userService.update(userInfo.id, updateDto);
+    return this.userService.update(
+      await this.authService.extractJwt(authorization).id,
+      updateDto,
+    );
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -58,15 +59,9 @@ export class UserController {
     @Headers('Authorization') authorization: string,
     @Body() deleteDto: DeleteDto,
   ) {
-    const userInfo = await this.extractJwt(authorization);
-    return this.userService.delete(userInfo.id, deleteDto);
-  }
-
-  private async extractJwt(authorization: string) {
-    const token = authorization.replace('Bearer ', '');
-    const userInfo = await this.jwtService.verifyAsync(token, {
-      secret: process.env.JWT_SECRET,
-    });
-    return JSON.parse(JSON.stringify(userInfo));
+    return this.userService.delete(
+      await this.authService.extractJwt(authorization).id,
+      deleteDto,
+    );
   }
 }
