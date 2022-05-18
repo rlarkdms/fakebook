@@ -321,6 +321,7 @@ model Post {
 author 와 posts field 는 두 model 간의 관계를 정의한 field column 값으로 db에는 드러나지 않는 prisma client 에서만 다루는 값이다.
 
 ### 1:1 relation
+
 내일 직접 try 후에 정리하자(cross check)
 
 ---
