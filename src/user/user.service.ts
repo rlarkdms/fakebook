@@ -1,6 +1,6 @@
 import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { DeleteDto, SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
-import { SuccessDto } from 'src/user/dto/response.success.dto';
+import { SuccessDto } from 'src/dto/response.success.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { PrismaService } from 'src/prisma.service';
 

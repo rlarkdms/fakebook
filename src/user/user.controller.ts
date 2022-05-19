@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Headers, Patch, Post, UseGuards } from '@nestjs/common';
 import { DeleteDto, SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
-import { SuccessDto } from 'src/user/dto/response.success.dto';
+import { SuccessDto } from 'src/dto/response.success.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from 'src/auth/auth.service';
