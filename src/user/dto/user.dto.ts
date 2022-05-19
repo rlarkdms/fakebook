@@ -1,13 +1,4 @@
-import {
-  IsEmail,
-  IsString,
-  MaxLength,
-  MinLength,
-  IsOptional,
-  IsNotEmpty,
-  IsDate,
-  IsNumber,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 import { OmitType, PartialType } from '@nestjs/mapped-types';
 
 /**

@@ -22,10 +22,7 @@ export class AuthService {
     return password ? await bcrypt.hash(password, 10) : undefined;
   }
 
-  static comparePassword(
-    rawPassword: string,
-    hashPassword: string,
-  ): Promise<boolean> {
+  static comparePassword(rawPassword: string, hashPassword: string): Promise<boolean> {
     return bcrypt.compare(rawPassword, hashPassword);
   }
 
@@ -38,9 +35,7 @@ export class AuthService {
   }
 
   async generateToken(signinDto: SigninDto): Promise<string | null> {
-    const { id, password, name, email } = await this.userService.findUser(
-      signinDto.id,
-    );
+    const { id, password, name, email } = await this.userService.findUser(signinDto.id);
     if (await AuthService.comparePassword(signinDto['password'], password)) {
       return this.jwtService.sign({ id, name, email });
     }
