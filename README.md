@@ -327,7 +327,7 @@ author 와 posts field 는 두 model 간의 관계를 정의한 field column 값
 ---
 
 # Nest.js Study note
-
+* @Module()데코레이터는 Nest가 어플리케이션 구조를 구성하는데 사용하는 메타데이터를 제공한다.
 * Nest.js 는 모듈의 집합이다.
 * Nest.js 는 Single Responsibility Principle 에 의해 Controller, Provider(Service, Repository, Factory, Helper, etc...),
   Module 로 구성되어 있다. 기존 express 와 비교하면 비즈니스 로직을 provider(service)에 정의 하고 Controller 는 url과 연결시키는 역할만 한다.

@@ -8,8 +8,8 @@ import { UserService } from 'src/user/user.service';
 export class AuthService {
   constructor(
     @Inject(forwardRef(() => UserService))
-    private readonly userService: UserService,
-    private readonly jwtService: JwtService,
+    private userService: UserService,
+    private jwtService: JwtService,
   ) {}
 
   static async hashPassword(password: string): Promise<string | undefined> {

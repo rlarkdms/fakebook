@@ -8,7 +8,7 @@ import { PrismaService } from 'src/prisma.service';
 export class UserService {
   constructor(
     @Inject(forwardRef(() => AuthService))
-    private readonly authService: AuthService,
+    private authService: AuthService,
     private prisma: PrismaService,
   ) {}
 

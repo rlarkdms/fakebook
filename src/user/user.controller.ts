@@ -1,29 +1,27 @@
 import { Body, Controller, Delete, Get, Headers, Patch, Post, UseGuards } from '@nestjs/common';
 import { DeleteDto, SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
+import { SuccessDto } from 'src/user/dto/response.success.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from 'src/auth/auth.service';
 
 /**
- * * @Get: signin
- * * @Post: signup
- * * @Patch: user information update
- * * @Delete: user delete
+ * * @Get: get user information
+ * * @Post: add user
+ * * @Patch: update user information
+ * * @Delete: delete user
  */
 @Controller('user')
 export class UserController {
-  constructor(
-    private readonly userService: UserService,
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private userService: UserService, private authService: AuthService) {}
 
-  @Get()
-  async signin(@Body() signinDto: SigninDto) {
-    return this.userService.signin(signinDto);
+  @Get() // get user information
+  getUserInformation(): SuccessDto {
+    return { statusCode: 200, message: 'shit' };
   }
 
   @Post()
-  async signup(@Body() signupDto: SignupDto) {
+  signup(@Body() signupDto: SignupDto) {
     return this.userService.signup(signupDto);
   }
 
