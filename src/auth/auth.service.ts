@@ -1,17 +1,13 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { SigninDto } from 'src/user/dto/user.dto';
+import { SigninDto, SignupDto } from 'src/user/dto/user.dto';
 import * as bcrypt from 'bcrypt';
-import { SuccessDto } from '../dto/response.success.dto';
+import { ApiResponse } from '../dto/response.dto';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class AuthService {
   constructor(private jwtService: JwtService, private prisma: PrismaService) {}
-  private static successResponse(message?): SuccessDto {
-    return { statusCode: HttpStatus.OK, message: message ?? 'success' };
-    //겨우 이런 기능 가져다 쓰려고 순환참조 문제 발생하는건 좀 그렇다
-  }
   /**
    * * return hashed password if password is provided. if not, return undefined
    * * below is prisma description
@@ -26,6 +22,10 @@ export class AuthService {
     return bcrypt.compare(rawPassword, hashPassword);
   }
 
+  async findUser(id: string): Promise<SignupDto | null> {
+    return (await this.prisma.user.findUnique({ where: { id: id } })) ?? null;
+  }
+
   extractJwt(authorization: string) {
     const token = authorization.replace('Bearer ', '');
     const userInfo = this.jwtService.verify(token, {
@@ -34,15 +34,28 @@ export class AuthService {
     return JSON.parse(JSON.stringify(userInfo));
   }
 
-  async generateToken(signinDto: SigninDto): Promise<SuccessDto> {
-    const userInfo = await this.prisma.user.findUnique({ where: { id: signinDto.id } });
-    if (!userInfo) throw new HttpException('Cannot found user', HttpStatus.NOT_FOUND);
+  async generateToken(signinDto: SigninDto): Promise<ApiResponse> {
+    const userInfo = await this.findUser(signinDto.id);
+    if (!userInfo)
+      return new ApiResponse({ statusCode: HttpStatus.NOT_FOUND, message: 'Cannot found user' });
 
-    if (await AuthService.comparePassword(signinDto['password'], userInfo.password)) {
-      return AuthService.successResponse(
-        this.jwtService.sign({ id: userInfo.id, name: userInfo.name, email: userInfo.email }),
-      );
+    if (!(await AuthService.comparePassword(signinDto['password'], userInfo.password)))
+      return new ApiResponse({
+        statusCode: HttpStatus.NOT_ACCEPTABLE,
+        message: 'Password not match',
+      });
+    try {
+      const token = this.jwtService.sign({
+        id: userInfo.id,
+        name: userInfo.name,
+        email: userInfo.email,
+      });
+      return new ApiResponse({ message: token });
+    } catch (e) {
+      throw new ApiResponse({
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Cannot generate token',
+      });
     }
-    throw new HttpException('Password not match', HttpStatus.NOT_ACCEPTABLE);
   }
 }

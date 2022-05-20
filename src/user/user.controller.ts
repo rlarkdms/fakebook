@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Headers, Patch, Post, UseGuards } from '@nestjs/common';
-import { DeleteDto, SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
-import { SuccessDto } from 'src/dto/response.success.dto';
+import { DeleteDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
+import { ApiResponse } from 'src/dto/response.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from 'src/auth/auth.service';
@@ -16,13 +16,13 @@ export class UserController {
   constructor(private userService: UserService, private authService: AuthService) {}
 
   @Get() // get user information
-  getUserInformation(): SuccessDto {
+  getUserInformation(): ApiResponse {
     return { statusCode: 200, message: 'shit' };
   }
 
   @Post()
-  signup(@Body() signupDto: SignupDto) {
-    return this.userService.signup(signupDto);
+  async signup(@Body() signupDto: SignupDto): Promise<ApiResponse> {
+    return await this.userService.signup(signupDto);
   }
 
   @UseGuards(AuthGuard('jwt'))

@@ -1,80 +1,79 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import {
-  DeleteDto,
-  SigninDto,
-  SignupDto,
-  UpdateDto,
-} from 'src/user/dto/user.dto';
-import { SuccessDto } from 'src/dto/response.success.dto';
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { DeleteDto, SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
+import { ApiResponse } from 'src/dto/response.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private authService: AuthService,
-    private prisma: PrismaService,
-  ) {}
-
-  private static successResponse(message?): SuccessDto {
-    return { statusCode: HttpStatus.OK, message: message ?? 'success' };
-  }
+  constructor(private authService: AuthService, private prisma: PrismaService) {}
 
   async findUser(id: string): Promise<SignupDto | null> {
     return (await this.prisma.user.findUnique({ where: { id: id } })) ?? null;
   }
 
-  async signin(signinDto: SigninDto): Promise<SuccessDto> {
-    if (!(await this.findUser(signinDto.id)))
-      throw new HttpException('Cannot found user', HttpStatus.NOT_FOUND);
-    const token = await this.authService.generateToken(signinDto);
-    if (!token)
-      throw new HttpException('Password not match', HttpStatus.NOT_ACCEPTABLE);
-    return UserService.successResponse(token);
-  }
-
-  async signup(signupDto: SignupDto): Promise<SuccessDto> {
+  async signup(signupDto: SignupDto): Promise<ApiResponse> {
     if (await this.findUser(signupDto.id))
-      throw new HttpException('User ID is already exist', HttpStatus.CONFLICT);
+      return new ApiResponse({
+        statusCode: HttpStatus.CONFLICT,
+        message: 'User ID is already exist',
+      });
+
     signupDto.password = await AuthService.hashPassword(signupDto.password);
-    await this.prisma.user.create({ data: signupDto });
-    return UserService.successResponse();
+    try {
+      await this.prisma.user.create({ data: signupDto });
+      return new ApiResponse({});
+    } catch (e) {
+      throw new ApiResponse({
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Cannot create user',
+      });
+    }
   }
 
-  async update(
-    requestUserId: SigninDto['id'],
-    updateDto: UpdateDto,
-  ): Promise<SuccessDto> {
-    if (
-      !(await AuthService.comparePassword(
-        updateDto.password,
-        (
-          await this.findUser(requestUserId)
-        )['password'],
-      ))
-    )
-      throw new HttpException('Incorrect password', HttpStatus.UNAUTHORIZED);
-    let { id, password, newPassword, name, email } = updateDto;
-    newPassword = await AuthService.hashPassword(newPassword);
-    await this.prisma.user.update({
-      where: { idx: (await this.findUser(requestUserId))['idx'] },
-      data: { id: id, password: newPassword, name: name, email: email },
-    });
-    return UserService.successResponse();
+  async update(requestUserJwtId: SigninDto['id'], updateDto: UpdateDto): Promise<ApiResponse> {
+    const userInfo = await this.findUser(requestUserJwtId);
+    if (!userInfo)
+      return new ApiResponse({ statusCode: HttpStatus.NOT_FOUND, message: 'Cannot found user' });
+    if (!(await AuthService.comparePassword(updateDto.password, userInfo.password)))
+      return new ApiResponse({
+        statusCode: HttpStatus.UNAUTHORIZED,
+        message: 'Incorrect password',
+      });
+    try {
+      let { newPassword } = updateDto;
+      const { id, name, email } = updateDto;
+      newPassword = await AuthService.hashPassword(newPassword);
+      await this.prisma.user.update({
+        where: { idx: userInfo['idx'] },
+        data: { id: id, password: newPassword, name: name, email: email },
+      });
+      return new ApiResponse({});
+    } catch (e) {
+      throw new ApiResponse({
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Cannot update user',
+      });
+    }
   }
 
-  async delete(
-    requestUserId: SigninDto['id'],
-    deleteDto: DeleteDto,
-  ): Promise<SuccessDto> {
-    if (
-      !AuthService.comparePassword(
-        deleteDto.password,
-        (await this.findUser(requestUserId))['password'],
-      )
-    )
-      throw new HttpException('Incorrect password', HttpStatus.UNAUTHORIZED);
-    await this.prisma.user.delete({ where: { id: requestUserId } });
-    return UserService.successResponse();
+  async delete(requestUserJwtId: SigninDto['id'], deleteDto: DeleteDto): Promise<ApiResponse> {
+    const userInfo = await this.findUser(requestUserJwtId);
+    if (!userInfo)
+      return new ApiResponse({ statusCode: HttpStatus.NOT_FOUND, message: 'Cannot found user' });
+    if (!(await AuthService.comparePassword(deleteDto.password, userInfo.password)))
+      return new ApiResponse({
+        statusCode: HttpStatus.UNAUTHORIZED,
+        message: 'Incorrect password',
+      });
+    try {
+      await this.prisma.user.delete({ where: { id: requestUserJwtId } });
+      return new ApiResponse({});
+    } catch (e) {
+      throw new ApiResponse({
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Cannot delete user',
+      });
+    }
   }
 }
