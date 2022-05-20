@@ -6,9 +6,9 @@ import { PrismaService } from '../prisma.service';
 import { AuthService } from '../auth/auth.service';
 
 @Module({
-  imports: [AuthModule], // get JwtModule.register
-  controllers: [UserController],
-  providers: [UserService, PrismaService, AuthService],
-  exports: [UserService],
+    imports: [AuthModule], // get JwtModule.register
+    controllers: [UserController],
+    providers: [UserService, PrismaService, AuthService],
+    exports: [UserService],
 })
 export class UserModule {}

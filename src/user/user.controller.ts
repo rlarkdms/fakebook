@@ -13,27 +13,33 @@ import { AuthService } from 'src/auth/auth.service';
  */
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService, private authService: AuthService) {}
+    constructor(private userService: UserService, private authService: AuthService) {}
 
-  @Get() // get user information
-  getUserInformation(): ApiResponse {
-    return { statusCode: 200, message: 'shit' };
-  }
+    @Get() // get user information
+    getUserInformation(): ApiResponse {
+        return { statusCode: 200, message: 'shit' };
+    }
 
-  @Post()
-  async signup(@Body() signupDto: SignupDto): Promise<ApiResponse> {
-    return await this.userService.signup(signupDto);
-  }
+    @Post()
+    async signup(@Body() signupDto: SignupDto): Promise<ApiResponse> {
+        return await this.userService.signup(signupDto);
+    }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Patch()
-  async update(@Headers('Authorization') authorization: string, @Body() updateDto: UpdateDto) {
-    return this.userService.update(await this.authService.extractJwt(authorization).id, updateDto);
-  }
+    @UseGuards(AuthGuard('jwt'))
+    @Patch()
+    async update(@Headers('Authorization') authorization: string, @Body() updateDto: UpdateDto) {
+        return this.userService.update(
+            await this.authService.extractJwt(authorization).id,
+            updateDto,
+        );
+    }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Delete()
-  async delete(@Headers('Authorization') authorization: string, @Body() deleteDto: DeleteDto) {
-    return this.userService.delete(await this.authService.extractJwt(authorization).id, deleteDto);
-  }
+    @UseGuards(AuthGuard('jwt'))
+    @Delete()
+    async delete(@Headers('Authorization') authorization: string, @Body() deleteDto: DeleteDto) {
+        return this.userService.delete(
+            await this.authService.extractJwt(authorization).id,
+            deleteDto,
+        );
+    }
 }

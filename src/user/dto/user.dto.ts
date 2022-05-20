@@ -14,24 +14,24 @@ import { OmitType, PartialType } from '@nestjs/mapped-types';
  * * intersection: 교차
  * */
 export class UserDto {
-  @IsString()
-  @MinLength(4)
-  @MaxLength(15)
-  id: string;
+    @IsString()
+    @MinLength(4)
+    @MaxLength(15)
+    id: string;
 
-  @IsString()
-  @MinLength(8)
-  @MaxLength(30)
-  password: string;
+    @IsString()
+    @MinLength(8)
+    @MaxLength(30)
+    password: string;
 
-  @IsString()
-  @MinLength(4)
-  @MaxLength(30)
-  name: string;
+    @IsString()
+    @MinLength(4)
+    @MaxLength(30)
+    name: string;
 
-  @IsEmail()
-  @MaxLength(30)
-  email: string;
+    @IsEmail()
+    @MaxLength(30)
+    email: string;
 }
 
 // * IsJwt()
@@ -41,17 +41,17 @@ export class SigninDto extends OmitType(UserDto, ['name', 'email']) {}
 export class SignupDto extends UserDto {}
 
 export class UpdateDto extends PartialType(UserDto) {
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
-  @MaxLength(30)
-  password: string;
+    @IsNotEmpty()
+    @IsString()
+    @MinLength(8)
+    @MaxLength(30)
+    password: string;
 
-  @IsOptional()
-  @IsString()
-  @MinLength(8)
-  @MaxLength(30)
-  newPassword: string;
+    @IsOptional()
+    @IsString()
+    @MinLength(8)
+    @MaxLength(30)
+    newPassword: string;
 }
 
 export class DeleteDto extends SigninDto {}
