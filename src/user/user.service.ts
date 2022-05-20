@@ -22,7 +22,7 @@ export class UserService {
         signupDto.password = await AuthService.hashPassword(signupDto.password);
         try {
             await this.prisma.user.create({ data: signupDto });
-            return new ApiResponse({});
+            return new ApiResponse();
         } catch (e) {
             throw new ApiResponse({
                 statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -51,7 +51,7 @@ export class UserService {
                 where: { idx: userInfo['idx'] },
                 data: { id: id, password: newPassword, name: name, email: email },
             });
-            return new ApiResponse({});
+            return new ApiResponse();
         } catch (e) {
             throw new ApiResponse({
                 statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -74,7 +74,7 @@ export class UserService {
             });
         try {
             await this.prisma.user.delete({ where: { id: requestUserJwtId } });
-            return new ApiResponse({});
+            return new ApiResponse();
         } catch (e) {
             throw new ApiResponse({
                 statusCode: HttpStatus.INTERNAL_SERVER_ERROR,

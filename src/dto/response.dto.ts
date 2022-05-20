@@ -4,15 +4,14 @@ import { HttpStatus } from '@nestjs/common';
 export class ApiResponse {
     @IsNotEmpty()
     @IsNumber()
-    statusCode: number;
+    statusCode: number = HttpStatus.OK;
 
     @IsNotEmpty()
     @IsString()
-    message: string;
+    message = 'Success';
 
     // ? Default { "statusCode": 200, "message": "Success" }
-    constructor(params: { statusCode?: number; message?: string }) {
-        this.statusCode = params.statusCode ?? HttpStatus.OK;
-        this.message = params.message ?? 'Success';
+    constructor(init?: Partial<ApiResponse>) {
+        Object.assign(this, init);
     }
 }
