@@ -1,5 +1,10 @@
-import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { DeleteDto, SigninDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import {
+  DeleteDto,
+  SigninDto,
+  SignupDto,
+  UpdateDto,
+} from 'src/user/dto/user.dto';
 import { SuccessDto } from 'src/dto/response.success.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { PrismaService } from 'src/prisma.service';
@@ -7,7 +12,6 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class UserService {
   constructor(
-    @Inject(forwardRef(() => AuthService))
     private authService: AuthService,
     private prisma: PrismaService,
   ) {}
@@ -24,7 +28,8 @@ export class UserService {
     if (!(await this.findUser(signinDto.id)))
       throw new HttpException('Cannot found user', HttpStatus.NOT_FOUND);
     const token = await this.authService.generateToken(signinDto);
-    if (!token) throw new HttpException('Password not match', HttpStatus.NOT_ACCEPTABLE);
+    if (!token)
+      throw new HttpException('Password not match', HttpStatus.NOT_ACCEPTABLE);
     return UserService.successResponse(token);
   }
 
@@ -36,7 +41,10 @@ export class UserService {
     return UserService.successResponse();
   }
 
-  async update(requestUserId: SigninDto['id'], updateDto: UpdateDto): Promise<SuccessDto> {
+  async update(
+    requestUserId: SigninDto['id'],
+    updateDto: UpdateDto,
+  ): Promise<SuccessDto> {
     if (
       !(await AuthService.comparePassword(
         updateDto.password,
@@ -55,7 +63,10 @@ export class UserService {
     return UserService.successResponse();
   }
 
-  async delete(requestUserId: SigninDto['id'], deleteDto: DeleteDto): Promise<SuccessDto> {
+  async delete(
+    requestUserId: SigninDto['id'],
+    deleteDto: DeleteDto,
+  ): Promise<SuccessDto> {
     if (
       !AuthService.comparePassword(
         deleteDto.password,

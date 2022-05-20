@@ -430,6 +430,61 @@ serviceB
 ServiceB;
 ```
 
+## Module
+Module 은 C 의 header 파일과 일부 유사하지만 다르다.
+header 파일의 경우엔 
+header 파일의 경우엔 header_A.h 파일 내에 다른 헤더 파일 header_B.h 을 불러오면 header_A.h 를 include 한 파일은 header_B 를 쓸수 있다.  
+하지만 nest.js 는 module 이 controller 나 provider 에게 provider 를 직접 주입해주진 않고 불러올 모듈의 설정값을 넣어준다.   
+즉, A module 의 import 에서 설정해준 B module 의 값은 A module 의 의존성을 가지고 있는 A controller, A provider 가 B Module 을 import 할 때 쓰이는 값이다.  
+다른 provider 를 쓰려면 controller 나 provider 에서 직접 불러와야한다.  
+아래의 예시를 보자.
+```ts
+// user.module.ts
+@Module({
+  imports: [   
+ JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '7d' },
+    }),
+// auth.module.ts
+@Module({
+  imports: [
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '7d' },
+    }),
+```
+duplicated code 가 생겼으므로 이렇게 짜면 곤란하다.  
+imports 는 특정 module 에 속한 provider 를 불러올 떄 사용할 property 를 넘기기 위해 있는것이다.  
+위와 같은 경우엔 아래화 같이 해결할 수 있다.  
+```ts
+// auth.module.ts
+@Module({
+  imports: [
+    JwtModule.register({ 
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '7d' },
+    }),
+  ],
+  controllers: [AuthController],
+  providers: [AuthService, JwtStrategy, PrismaService],
+  exports: [JwtModule], // export JwtModule.register setting
+})
+export class AuthModule {}
+// user.module.ts
+@Module({
+  imports: [AuthModule], // get JwtModule.register
+  controllers: [UserController],
+  providers: [UserService, PrismaService, AuthService],
+  exports: [UserService],
+})
+export class UserModule {}
+
+```
+JwtModule 은 auth module 에서 이미 설정을 마쳤고, 어차피 user module 에서도 같은 설정을 사용할 것이다.  
+이럴 경우, auth module 에서 JwtModule 을 export 한 뒤 user module 에서 import 해주면 된다.  
+
 ## Exception handling
 
 * BadRequestException
