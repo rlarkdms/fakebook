@@ -78,10 +78,11 @@ Symbol.for method 는 Symbol 과 다르게 전달받은 문자열을 키로 사�
 Symbol.keyFor method 를 사용하면 global symbol registry 에 저장된 symbol 값의 키를 추출한다.
 
 ### Object
-#### Primitive type
-원시값은 immutable value(변경 불가능한 값)이다.  Number, String, Boolean, null, undefined 와 같은 일정한 메모리 공간과 크기를 가지고 있는 데이터 타입으로 정의된 데이터들이다.  
-사실 원래 C와 같은 Low-level 언어에서는 메모리 값은 바뀌는데 자바스크립트에선 변수에 새로운 값이 재할당이 되면 포인터가 새로운 값을 다시 가르키고 기존에 있던 값은 그대로 남아있다.  
-개인적인 견해론 해당 메모리 블럭을 재사용 하지 않으면 memory leak 이 격정이 되긴 한다...
+#### Primitive type(immutable value)
+C 의 포인터 개념을 알고 있으면 이해가 수월하다.  
+Number, String, Boolean, null, undefined 와 같은 일정한 memory space, size를 가지고 있는 data type으로 정의된 data들이다.  
+Stack 에 저장된다. 사실 원래 C와 같은 Low-level 언어에서는 memory value은 바뀌는데 자바스크립트에선 변수에 새로운 값이 reallocate이 되면 포인터가 새로운 값을 다시 가르키고 기존에 있던 값은 그대로 남아있다.  
+개인적인 견해론 해당 memory 를 reallocate 하지 않으면 memory leak 이 격정이 되긴 한다...
 ```js
 // Not official... just guess
 var yoyoyo = "shit"; // "shit" [0xbff00000]
@@ -95,7 +96,17 @@ var lol = "shit"; // "shit" [0xbff00000]
 var lool = lol;   // "shit" [0xbff00008] "shit" [0xbff00000] shit is unchanged
 ```
 값을 다른 변수에 전달해도 해당 데이터가 메모리상으로는 복사된것이다.
+#### Reference type(mutable value)
+Reference type 은 Object type 의 값이다.  
+variable 에 object 를 할당하면, 해당 object 를 reference 하고있는 memory address 를 variable 이 가지고 있게 된다.  
+C 의 pointer 를 생각하면 이해가 쉽다.  
+Primitive type 과 다르게 Reference type 은 mutable value 이므로 memory 에 저장된 object 를 직접 수정할 수 있다.  
+object 는 크기가 매우 클수도 있고 primitive type 처럼 크기가 일정하지도 않으며 property 값이 object 일 수도 있어서 deep copy 해서 생성하는 비용이 많이든다.  
+즉 memory 의 효율적 소비가 어렵고 성능이 나빠진다.  
+object 는 이러한 구조적 단점에 따라 여러 개의 식별자가 하나의 object 를 공유할 수 있다는 것이다.  
 
+얕은 복사는 객체의 memory 값을 전달하여 복사된 객체와 원본객체가 동일한 메모리 영역을 참조하지만, 
+깊은 복사는 객체 그대로를 똑같이 clone 하므로 참조하는 메모리 영역은 서로 다르다.
 
 # Object Oriented Programming with TypeScript
 
