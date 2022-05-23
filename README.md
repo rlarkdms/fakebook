@@ -14,9 +14,19 @@ A facebook cloning project for practice and learn the basic CURD with RESTful AP
 A Object Oriented Programming with TypeScript and Nest.js study note section is study note for my own in this article
 
 # Table Of Concept
-- [Fakebook](#fakebook)
 - [How to use](#how-to-use)
 - [Javascript fundamental concept](#javascript-fundamental-concept)
+    * [Variable](#variable)
+        + [var - ES5](#var---es5)
+        + [let - ES6](#let---es6)
+        + [const - ES6](#const---es6)
+        + [number](#number)
+        + [undefined](#undefined)
+        + [Symbol - ES6](#symbol---es6)
+            - [Symbol.for / Symbol.keyFor Method](#symbolfor---symbolkeyfor-method)
+        + [Object](#object)
+            - [Primitive type(immutable value)](#primitive-type-immutable-value-)
+            - [Reference type(mutable value)](#reference-type-mutable-value-)
 - [Object Oriented Programming with TypeScript](#object-oriented-programming-with-typescript)
     * [Inheritance and prototype](#inheritance-and-prototype)
     * [Class](#class)
