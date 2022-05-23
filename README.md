@@ -13,6 +13,38 @@
 A facebook cloning project for practice and learn the basic CURD with RESTful API.
 A Object Oriented Programming with TypeScript and Nest.js study note section is study note for my own in this article
 
+# Table Of Concept
+- [Fakebook](#fakebook)
+- [How to use](#how-to-use)
+- [Javascript fundamental concept](#javascript-fundamental-concept)
+- [Object Oriented Programming with TypeScript](#object-oriented-programming-with-typescript)
+    * [Inheritance and prototype](#inheritance-and-prototype)
+    * [Class](#class)
+        + [Introduction](#introduction)
+        + [Method](#method)
+            - [Constructor](#constructor)
+            - [Prototype method](#prototype-method)
+            - [Static method](#static-method)
+            - [Static method vs Prototype method](#static-method-vs-prototype-method)
+        + [클래스의 Instance 생성 과정](#-----instance------)
+            - [this keyword](#this-keyword)
+        + [Property with access modifiers(속성 및 접근 제어자)](#property-with-access-modifiers-------------)
+        + [ES5 vs ES6](#es5-vs-es6)
+- [RDBMS with prisma Study note](#rdbms-with-prisma-study-note)
+    * [Data source](#data-source)
+    * [Generator](#generator)
+    * [Data model definitions](#data-model-definitions)
+    * [Data model](#data-model)
+        + [1:1 relation](#1-1-relation)
+- [Nest.js Study note](#nestjs-study-note)
+    * [Data Transfer Object(DTO) and Pipe](#data-transfer-object-dto--and-pipe)
+    * [Dependency Injection](#dependency-injection)
+    * [Circular Dependency](#circular-dependency)
+    * [Module](#module)
+    * [Exception handling](#exception-handling)
+    * [Security](#security)
+    * [References](#references)
+
 # How to use
 
 Run postgres on docker
@@ -29,6 +61,8 @@ Start nest server for local development environment.
 $ yarn install # Only use first
 $ npm run start:dev
 ```
+
+# Javascript fundamental concept
 
 # Object Oriented Programming with TypeScript
 
