@@ -64,7 +64,44 @@ $ npm run start:dev
 # Javascript fundamental concept
 ## Variable
 자바 스크립트의 variable declare 은 runtime 이전 단계에서 먼저 실행된다. 이처럼 변수 선언문이 코드의 선두로 끌어 올려진 것 처럼 동작하는 자바 스크립트의 고유의 특징을 variable hoisting(declare + initialize) 이라고 한다.
-### var, let, const <정리해야함>
+### var - ES5
+ES5 까지 사용되어온 var 키워드는 아래와 같은 문제점이 있다.  
+* Allow duplicate declaration
+* Function level scope
+* Variable hoisting 
+```js
+(function() {
+    var shit = "fuck"; 
+    if (true){
+        var shit = "yo"; // Allow duplicate declaration
+    }
+    console.log(shit); // Function level scope result: yo
+})();
+
+// Variable hoisting
+console.log(shit);
+shit = "yo";
+console.log(shit);
+var shit;
+```
+Allow duplicate declaration 과 function level scope 문제는 위 코드 예제로 알 수 있다.
+vaiable hoisting 에 의해 끌어올려진 변수는 코드 흐름상 맞지 않고 가독성을 떨어뜨리며 오류를 발생시킬 여지를 남긴다.
+
+ES6 부터 기존 var 키워드의 문제점을 보완한 let 과 const 가 추가되었다.  
+### let - ES6
+* Disallow duplicate declaration  
+* Block level scope  
+Variable hoisting 이 발생하지 않는 것 처럼 동작하지만 그렇지 않다.
+var 로 선언하게 되면 선언 단계와 초기화 단계가 동시에 일어나기 때문에 선언 하기도 전에 undefined 로 이미 초기화 되어서 접근이 가능하지만,  
+let 은 선언 단계와 초기화 단계가 나누어져 동작하기 때문에 선언단계와 초기화 단계 사이에 Temporal Dead Zone 이 발생하게 되어 ReferenceError 가 발생하게 된다.
+
+### const - ES6
+const 는 let 과 대부분 동일 하므로 let 과 다른점을 기술한다.
+* Const 는 선언과 동시에 초기화 해야 한다.
+* Block level scope
+* Disallow reallocation (재할당을 금지할 뿐 불변을 의미하지 않는다)
+const 로 선언된 변수에 object 를 할당한 경우 값을 변경할 수 있다.
+
 ### number
 자바스크립트의 모든 number type 은 float 이다.
 ### undefined
