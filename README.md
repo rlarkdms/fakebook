@@ -14,6 +14,7 @@ A facebook cloning project for practice and learn the basic CURD with RESTful AP
 A Object Oriented Programming with TypeScript and Nest.js study note section is study note for my own in this article
 
 # Table Of Concept
+- [Table Of Concept](#table-of-concept)
 - [How to use](#how-to-use)
 - [Javascript fundamental concept](#javascript-fundamental-concept)
     * [Variable](#variable)
@@ -38,6 +39,9 @@ A Object Oriented Programming with TypeScript and Nest.js study note section is 
         + [클래스의 Instance 생성 과정](#-----instance------)
             - [this keyword](#this-keyword)
         + [Property with access modifiers(속성 및 접근 제어자)](#property-with-access-modifiers-------------)
+        + [Inheritance](#inheritance)
+            - [extends](#extends)
+            - [implements](#implements)
         + [ES5 vs ES6](#es5-vs-es6)
 - [RDBMS with prisma Study note](#rdbms-with-prisma-study-note)
     * [Data source](#data-source)
@@ -298,6 +302,40 @@ OOP가 적용된 언어에서는 Encapsulation 개념이 적용되어 있어 Acc
 
 New 로 객체를 생성하지 않는다.(constructor가 없다.)
 static method 는 클래스의 인스턴스 없이 호출이 가능하기에 보통 유틸리티 함수를 만드는데 사용된다.
+
+### Inheritance 
+#### extends
+```js
+class Person {
+    constructor(name){
+        this.name = name;
+    }
+}
+class shit extends Person {
+    sayHi(){
+        console.log(this.shit);
+    }
+}
+```
+새로운 child class 를 만든다. 모든 properties 와 methods 들이 parent 로 부터 inheritance 받는다.  
+Override 는 옵션이다.  
+
+#### implements
+```ts
+interface Person {
+    name: string
+    sayHi(name: string): void
+}
+class shit implements Person {
+    name = "yoyo";
+    sayHi(name) {
+        console.log(name);
+    }
+}
+```
+parent class 와 동일한 규격을 맞추어 정의하고 싶을 때 사용한다.  
+implements 라는 단어 뜻대로 이런 식으로 클래스를 구성하라고 강제할 때 사용한다.  
+Override 는 필수이다.
 
 ### ES5 vs ES6
 
