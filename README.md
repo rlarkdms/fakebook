@@ -56,7 +56,8 @@ function Circle(radius) {
 }
 
 const circle0 = new Circle(1);
-const circle1 = new Circle(1); // getArea method created again! (memory leak)
+const circle1 = new Circle(2); // getArea method created again! (memory leak)
+console.log(circle0.getArea === circle1.getArea); //false
 
 // Good Code
 function Circle(radius) {
@@ -67,7 +68,8 @@ Circle.prototype.getArea = function () {
     return Math.PI * this.radius ** 2;
 }
 const circle0 = new Circle(1);
-const circle2 = new Circle(2);
+const circle1 = new Circle(2);
+console.log(circle0.getArea === circle1.getArea); //true
 ```
 
 ## Class
