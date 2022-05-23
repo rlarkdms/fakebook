@@ -20,7 +20,6 @@ A Object Oriented Programming with TypeScript and Nest.js study note section is 
 - [Object Oriented Programming with TypeScript](#object-oriented-programming-with-typescript)
     * [Inheritance and prototype](#inheritance-and-prototype)
     * [Class](#class)
-        + [Introduction](#introduction)
         + [Method](#method)
             - [Constructor](#constructor)
             - [Prototype method](#prototype-method)
@@ -107,8 +106,6 @@ console.log(circle0.getArea === circle1.getArea); //true
 ```
 
 ## Class
-
-### Introduction
 
 class 는 constructor(생성자) 함수를 가르키며, new 로 호출되어 instance 를 생성한다.  
 class 선언문은 runtime 이전에 먼저 실행된다.
