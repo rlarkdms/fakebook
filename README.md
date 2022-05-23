@@ -62,6 +62,40 @@ $ npm run start:dev
 ```
 
 # Javascript fundamental concept
+## Variable
+자바 스크립트의 variable declare 은 runtime 이전 단계에서 먼저 실행된다. 이처럼 변수 선언문이 코드의 선두로 끌어 올려진 것 처럼 동작하는 자바 스크립트의 고유의 특징을 variable hoisting(declare + initialize) 이라고 한다.
+### var, let, const <정리해야함>
+### number
+자바스크립트의 모든 number type 은 float 이다.
+### undefined
+자바스크립트 엔진이 변수를 initialize 하는데 사용하는 undefined 를 개발자가 의도적으로 변수에 할당한다면 undefined 의 본래 취지와 어긋날뿐더러 혼란을 줄 수 있으므로 권장하지 않는다.
+### Symbol - ES6
+Symbol 은 ES6에 도입된 7번쨰 데이터 타입으로 변경 불가능한 고유(층돌하지 않는)의 값이다.  
+`const sym = Symbol()`  
+Symbol 함수에는 선택적으로 문자열을 argument 로 전달할 수 있는데 해당 문자열은 symbol 값에 대한 설명으로 디버깅 용도로만 사용되며 symbol 값에 영향을 주지 않는다.  
+#### Symbol.for / Symbol.keyFor Method
+Symbol.for method 는 Symbol 과 다르게 전달받은 문자열을 키로 사용하여 key 와 symbol 값의 쌍들이 저장되어있는 global symbol registry 에서 해당 키와 일치하는 symbol 값을 검색하고 없다면 새로운 symbol 값을 생성한다   
+Symbol.keyFor method 를 사용하면 global symbol registry 에 저장된 symbol 값의 키를 추출한다.
+
+### Object
+#### Primitive type
+원시값은 immutable value(변경 불가능한 값)이다.  Number, String, Boolean, null, undefined 와 같은 일정한 메모리 공간과 크기를 가지고 있는 데이터 타입으로 정의된 데이터들이다.  
+사실 원래 C와 같은 Low-level 언어에서는 메모리 값은 바뀌는데 자바스크립트에선 변수에 새로운 값이 재할당이 되면 포인터가 새로운 값을 다시 가르키고 기존에 있던 값은 그대로 남아있다.  
+개인적인 견해론 해당 메모리 블럭을 재사용 하지 않으면 memory leak 이 격정이 되긴 한다...
+```js
+// Not official... just guess
+var yoyoyo = "shit"; // "shit" [0xbff00000]
+yoyoyo = "fuck"      // "fuck" [0xbff00008] "shit" [0xbff00000] shit is unchanged
+```
+위의 예제는 메모리에 shit 과 fuck 이 그대로 남아있다.
+
+```js
+// Not official... just guess
+var lol = "shit"; // "shit" [0xbff00000]
+var lool = lol;   // "shit" [0xbff00008] "shit" [0xbff00000] shit is unchanged
+```
+값을 다른 변수에 전달해도 해당 데이터가 메모리상으로는 복사된것이다.
+
 
 # Object Oriented Programming with TypeScript
 
