@@ -12,8 +12,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
 
+    // If controller have @UseGuards(AuthGuard('jwt')) decorator, validate JWT in this method
     async validate(payload: any) {
-        // JWT = Header + Payload + Signature
-        return { userId: payload.sub, username: payload.username };
+        return true;
     }
 }

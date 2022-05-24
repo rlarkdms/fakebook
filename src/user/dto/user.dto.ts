@@ -40,12 +40,12 @@ export class SigninDto extends OmitType(UserDto, ['name', 'email']) {}
 
 export class SignupDto extends UserDto {}
 
-export class UpdateDto extends PartialType(UserDto) {
-    @IsNotEmpty()
+export class UpdateDto extends UserDto {
+    @IsOptional()
     @IsString()
-    @MinLength(8)
-    @MaxLength(30)
-    password: string;
+    @MinLength(4)
+    @MaxLength(15)
+    newId: string;
 
     @IsOptional()
     @IsString()

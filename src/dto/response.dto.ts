@@ -13,5 +13,6 @@ export class ApiResponse {
     // ? Default { "statusCode": 200, "message": "Success" }
     constructor(init?: Partial<ApiResponse>) {
         Object.assign(this, init);
+        return this;
     }
 }

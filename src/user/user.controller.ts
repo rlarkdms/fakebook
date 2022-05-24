@@ -1,10 +1,9 @@
-import { Body, Controller, Delete, Get, Headers, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Headers, Put, Post, UseGuards } from '@nestjs/common';
 import { DeleteDto, SignupDto, UpdateDto } from 'src/user/dto/user.dto';
 import { ApiResponse } from 'src/dto/response.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from 'src/auth/auth.service';
-
 /**
  * * @Get: get user information
  * * @Post: add user
@@ -26,20 +25,14 @@ export class UserController {
     }
 
     @UseGuards(AuthGuard('jwt'))
-    @Patch()
-    async update(@Headers('Authorization') authorization: string, @Body() updateDto: UpdateDto) {
-        return this.userService.update(
-            await this.authService.extractJwt(authorization).id,
-            updateDto,
-        );
+    @Put()
+    async update(@Body() updateDto: UpdateDto): Promise<ApiResponse> {
+        return this.userService.update(updateDto);
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Delete()
-    async delete(@Headers('Authorization') authorization: string, @Body() deleteDto: DeleteDto) {
-        return this.userService.delete(
-            await this.authService.extractJwt(authorization).id,
-            deleteDto,
-        );
+    async delete(@Body() deleteDto: DeleteDto): Promise<ApiResponse> {
+        return this.userService.delete(deleteDto);
     }
 }
