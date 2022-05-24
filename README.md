@@ -54,7 +54,6 @@ A Object Oriented Programming with TypeScript and Nest.js study note section is 
     * [Dependency Injection](#dependency-injection)
     * [Circular Dependency](#circular-dependency)
     * [Module](#module)
-    * [Exception handling](#exception-handling)
     * [Security](#security)
     * [References](#references)
 
