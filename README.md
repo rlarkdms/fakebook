@@ -260,6 +260,7 @@ new Person("andrew").hi(); //andrew
 #### Static method
 
 static method 는 instance 를 생성하지 않아도 호출할 수 있는 Method 를 말한다.
+constructor 를 호출할 필요가 없으니 속도가 빠르며 static method 를 호출하기 위해 필요한 것은 class name 과 method name 뿐이다.
 
 ```js
 // ES5
