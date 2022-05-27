@@ -11,8 +11,7 @@
 <img src="https://img.shields.io/badge/KFC-F40027?style=flat-square&logo=kfc&logoColor=white"/>
 </div>
 
-A facebook cloning project for practice and learn the basic CURD with RESTful API.
-A Object Oriented Programming with TypeScript and Nest.js study note section is study note for my own in this article
+Building Facebook RESTful API Clone using Nest.js + TypeScript + Prisma
 
 Previous article was moved on my blog [pwner.kr](https://pwner.kr)
 
